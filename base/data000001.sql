@@ -489,3 +489,13 @@ select wf.f_import_tfuncionario_tipo_estado ('insert','informe','SAUDIT','531949
 select wf.f_import_tfuncionario_tipo_estado ('insert','prog_aprob','SAUDIT',NULL,'SAOM_CENTRAL','');
 
 /********************************************F-DAT-MCCH-SSOM-1-31/12/2019********************************************/
+
+/********************************************I-DAT-MCCH-SSOM-2-31/12/2019********************************************/
+-----------------------------------------------------------
+--Datos de parametros de configuracion de auditoria
+-----------------------------------------------------------
+INSERT INTO ssom.tparametro_config_auditoria ("id_usuario_reg", "estado_reg", "param_gestion", "param_fecha_a", "param_fecha_b", "param_prefijo", "param_serie")
+VALUES
+(1, E'activo', 2019, E'2019-12-31', E'2020-12-31', E'EAOM', E'00000');
+
+/********************************************F-DAT-MCCH-SSOM-2-31/12/2019********************************************/
