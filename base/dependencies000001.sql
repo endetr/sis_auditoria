@@ -325,44 +325,44 @@ ALTER TABLE ssom.taccion_ro
 
 /***********************************I-DEP-SAZP-SSOM-1-27/12/2019****************************************/
 
-ALTER TABLE prueba.tno_conformidad
+ALTER TABLE ssom.tno_conformidad
   ADD CONSTRAINT tno_conformidad_fk FOREIGN KEY (id_aom)
-    REFERENCES prueba.tauditoria_oportunidad_mejora(id_aom)
+    REFERENCES ssom.tauditoria_oportunidad_mejora(id_aom)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
     NOT DEFERRABLE;
 
-ALTER TABLE prueba.taccion_propuesta
+ALTER TABLE ssom.taccion_propuesta
   ADD CONSTRAINT taccion_propuesta_fk FOREIGN KEY (id_nc)
-    REFERENCES prueba.tno_conformidad(id_nc)
+    REFERENCES ssom.tno_conformidad(id_nc)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
     NOT DEFERRABLE;
 
-ALTER TABLE prueba.tpnorma_noconformidad
+ALTER TABLE ssom.tpnorma_noconformidad
   ADD CONSTRAINT tpnorma_noconformidad_fk FOREIGN KEY (id_nc)
-    REFERENCES prueba.tno_conformidad(id_nc)
+    REFERENCES ssom.tno_conformidad(id_nc)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
     NOT DEFERRABLE;
 
-ALTER TABLE prueba.tresp_acciones_prop
+ALTER TABLE ssom.tresp_acciones_prop
   ADD CONSTRAINT tresp_acciones_prop_fk FOREIGN KEY (id_ap)
-    REFERENCES prueba.taccion_propuesta(id_ap)
+    REFERENCES ssom.taccion_propuesta(id_ap)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
     NOT DEFERRABLE;
 
-ALTER TABLE prueba.tresp_sist_integrados
+ALTER TABLE ssom.tresp_sist_integrados
   ADD CONSTRAINT tresp_sist_integrados_fk FOREIGN KEY (id_si)
-    REFERENCES prueba.tsistema_integrado(id_si)
+    REFERENCES ssom.tsistema_integrado(id_si)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
     NOT DEFERRABLE;
 
-ALTER TABLE prueba.tsi_noconformidad
+ALTER TABLE ssom.tsi_noconformidad
   ADD CONSTRAINT tsi_noconformidad_fk FOREIGN KEY (id_nc)
-    REFERENCES prueba.tno_conformidad(id_nc)
+    REFERENCES ssom.tno_conformidad(id_nc)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
     NOT DEFERRABLE;
