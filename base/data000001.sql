@@ -524,9 +524,9 @@ VALUES
 
 INSERT INTO ssom.ttipo_ro ("id_usuario_reg", "estado_reg", "tipo_ro", "desc_tipo_ro")
 VALUES
-(513, E'activo', E'RIESGO_PROGRAMACION', E'Riesgo Programación'),
-(513, E'activo', E'OPORT_PROGRAMACION', E'Oportunidad Programación'),
-(513, E'activo', E'OPORT_PLANIFICACION', E'Oportunidad Planificación'),
-(513, E'activo', E'RIESGO_PLANIFICACION', E'Riesgo Planificación');
+(1, E'activo', E'RIESGO_PROGRAMACION', E'Riesgo Programación'),
+(1, E'activo', E'OPORT_PROGRAMACION', E'Oportunidad Programación'),
+(1, E'activo', E'OPORT_PLANIFICACION', E'Oportunidad Planificación'),
+(1, E'activo', E'RIESGO_PLANIFICACION', E'Riesgo Planificación');
 
 /********************************************F-DAT-MCCH-SSOM-4-02/12/2019********************************************/
