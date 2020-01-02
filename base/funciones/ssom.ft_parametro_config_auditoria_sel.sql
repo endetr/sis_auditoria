@@ -45,6 +45,7 @@ BEGIN
 						pcaom.param_gestion,
 						pcaom.param_fecha_a,
 						pcaom.param_fecha_b,
+			      pcaom.param_prefijo,
 						pcaom.param_serie,
 						pcaom.id_usuario_reg,
 						pcaom.fecha_reg,
