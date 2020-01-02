@@ -518,3 +518,15 @@ VALUES
 (E'ssom_parametro_codigo_dpto', E'SAOM_CENTRAL', E'Parametro para filtrar lista de funcionarios del Departamento de Sistema de GEstion Central en base a codigo (SAOM-CENTRAL)');
 
 /********************************************F-DAT-MCCH-SSOM-3-02/12/2019********************************************/
+
+/********************************************I-DAT-MCCH-SSOM-3-02/12/2019********************************************/
+-- Insercion de Tipo Riesgo Oportunidad
+
+INSERT INTO ssom.ttipo_ro ("id_usuario_reg", "estado_reg", "tipo_ro", "desc_tipo_ro")
+VALUES
+(513, E'activo', E'RIESGO_PROGRAMACION', E'Riesgo Programación'),
+(513, E'activo', E'OPORT_PROGRAMACION', E'Oportunidad Programación'),
+(513, E'activo', E'OPORT_PLANIFICACION', E'Oportunidad Planificación'),
+(513, E'activo', E'RIESGO_PLANIFICACION', E'Riesgo Planificación');
+
+/********************************************F-DAT-MCCH-SSOM-3-02/12/2019********************************************/
