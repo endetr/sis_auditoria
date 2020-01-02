@@ -499,3 +499,22 @@ VALUES
 (1, E'activo', 2019, E'2019-12-31', E'2020-12-31', E'EAOM', E'00000');
 
 /********************************************F-DAT-MCCH-SSOM-2-31/12/2019********************************************/
+
+/********************************************I-DAT-MCCH-SSOM-3-02/12/2019********************************************/
+INSERT INTO pxp.variable_global ("variable", "valor", "descripcion")
+VALUES
+(E'ssom_parametro_tipo_om', E'TIPO_OPORTUNIDAD_MEJORA', E'Tipo Oportunidad Mejora'),
+(E'ssom_estado_auditoria', E'1', E'Para obtener Estados de Auditoria'),
+(E'ssom_codigo_tipo_auditoria_interna', E'''AI''', E'Codigo para filtrar Auditorias Internas'),
+(E'ssom_codigo_tipo_oportunidad_mejora', E'''OM''', E'Para filtrar Oportunidades de Mejora'),
+(E'ssom_exc_parametros_estados_ai', E'''programado'',''prog_aprob'',''planificacion'',''plani_aprob'',''ejecutada'',''cerrado''', E'Para filtrar estados para auditoria'),
+(E'ssom_parametro_tipo_norma', E'TIPO_NORMA', E'Para filtrar parametros de TIPO_NORMA'),
+(E'ssom_parametro_objeto_auditoria', E'OBJETO_AUDITORIA', E'Para filtrar parametros OBJETO_AUDITORIA'),
+(E'ssom_exc_nivel_organizacional', E'3,7,8,9', E'Para discriminar nivel organizacional los funcionarios base'),
+(E'ssom_obtener_lista_empresa', E'1', E'Para obtener lista de empresa\r\nPara '),
+(E'ssom_auditoria', E'1', E'Variable global para filtrar Auditorias'),
+(E'ssom_oportunidad_mejora', E'2', E'Variable global para filtrar Oportunidades de Mejora'),
+(E'ssom_exc_parametros_estados_om', E'''programado'',''ejecutado'',''informe'',''cerrado''', E'Para filtrar estados para Opotundiades de Mejora'),
+(E'ssom_parametro_codigo_dpto', E'SAOM_CENTRAL', E'Parametro para filtrar lista de funcionarios del Departamento de Sistema de GEstion Central en base a codigo (SAOM-CENTRAL)');
+
+/********************************************F-DAT-MCCH-SSOM-3-02/12/2019********************************************/
