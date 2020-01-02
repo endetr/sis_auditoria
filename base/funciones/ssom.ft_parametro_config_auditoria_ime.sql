@@ -49,7 +49,7 @@ BEGIN
 			param_fecha_a,
 			param_fecha_b,
 			param_serie,
-			param_estado_config,
+			--param_estado_config,
 			id_usuario_reg,
 			fecha_reg,
 			id_usuario_ai,

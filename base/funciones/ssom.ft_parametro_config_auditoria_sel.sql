@@ -46,7 +46,7 @@ BEGIN
 						pcaom.param_fecha_a,
 						pcaom.param_fecha_b,
 						pcaom.param_serie,
-						pcaom.param_estado_config,
+						--pcaom.param_estado_config,
 						pcaom.id_usuario_reg,
 						pcaom.fecha_reg,
 						pcaom.id_usuario_ai,
