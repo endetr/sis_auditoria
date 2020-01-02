@@ -518,3 +518,57 @@ VALUES
 (E'ssom_parametro_codigo_dpto', E'SAOM_CENTRAL', E'Parametro para filtrar lista de funcionarios del Departamento de Sistema de GEstion Central en base a codigo (SAOM-CENTRAL)');
 
 /********************************************F-DAT-MCCH-SSOM-3-02/12/2019********************************************/
+
+/********************************************I-DAT-MCCH-SSOM-4-02/12/2019********************************************/
+-- Creacion de depto
+
+INSERT INTO param.tdepto ("id_usuario_reg", "estado_reg", "id_depto", "id_subsistema", "codigo", "nombre", "nombre_corto", "id_lugares", "prioridad", "modulo", "id_entidad")
+VALUES
+(1, E'activo', 56, 38, E'SAOM_CENTRAL', E'Sistema de Gestión Central', E'SG-CENTRAL', E'{2,61,66,68,112,63,216,65,73,226,385,268,380,382}', 1, E'', 1);
+
+-- Creacion de usuario depto
+
+INSERT INTO param.tdepto_usuario ("id_usuario_reg", "estado_reg", "id_depto_usuario", "id_depto", "id_usuario", "funcion", "cargo", "sw_alerta")
+VALUES
+(1, E'activo', 365, 56, 297, NULL, E'auxiliar', E'no'),
+(1, E'activo', 369, 56, 66, NULL, E'administrador', E'no'),
+(1, E'activo', 370, 56, 15, NULL, E'auxiliar', E'no'),
+(1, E'activo', 371, 56, 440, NULL, E'auxiliar', E'no'),
+(1, E'activo', 372, 56, 207, NULL, E'auxiliar', E'no'),
+(1, E'activo', 373, 56, 34, NULL, E'auxiliar', E'no'),
+(1, E'activo', 374, 56, 80, NULL, E'auxiliar', E'no'),
+(1, E'activo', 375, 56, 79, NULL, E'auxiliar', E'no'),
+(1, E'activo', 376, 56, 418, NULL, E'auxiliar', E'no'),
+(1, E'activo', 377, 56, 172, NULL, E'auxiliar', E'no'),
+(1, E'activo', 378, 56, 189, NULL, E'auxiliar', E'no'),
+(1, E'activo', 379, 56, 11, NULL, E'auxiliar', E'no'),
+(1, E'activo', 380, 56, 38, NULL, E'auxiliar', E'no'),
+(1, E'activo', 381, 56, 122, NULL, E'auxiliar', E'no'),
+(1, E'activo', 382, 56, 345, NULL, E'auxiliar', E'no'),
+(1, E'activo', 383, 56, 195, NULL, E'auxiliar', E'no'),
+(1, E'activo', 384, 56, 335, NULL, E'auxiliar', E'no'),
+(1, E'activo', 385, 56, 343, NULL, E'auxiliar', E'no'),
+(1, E'activo', 386, 56, 184, NULL, E'auxiliar', E'no'),
+(1, E'activo', 387, 56, 93, NULL, E'auxiliar', E'no'),
+(1, E'activo', 388, 56, 417, NULL, E'auxiliar', E'no'),
+(1, E'activo', 389, 56, 199, NULL, E'auxiliar', E'no'),
+(1, E'activo', 390, 56, 323, NULL, E'auxiliar', E'no'),
+(1, E'activo', 391, 56, 388, NULL, E'auxiliar', E'no'),
+(1, E'activo', 392, 56, 261, NULL, E'responsable', E'si'),
+(1, E'activo', 393, 56, 53, NULL, E'responsable', E'si'),
+(1, E'activo', 394, 56, 415, NULL, E'responsable', E'si'),
+(1, E'activo', 395, 56, 78, NULL, E'responsable', E'si'),
+(1, E'activo', 396, 56, 354, NULL, E'responsable', E'si'),
+(1, E'activo', 397, 56, 175, NULL, E'responsable', E'si'),
+(1, E'activo', 398, 56, 84, NULL, E'responsable', E'si'),
+(1, E'activo', 399, 56, 336, NULL, E'responsable', E'si'),
+(1, E'activo', 400, 56, 68, NULL, E'responsable', E'si'),
+(1, E'activo', 401, 56, 31, NULL, E'responsable', E'si'),
+(1, E'activo', 402, 56, 71, NULL, E'responsable', E'si'),
+(1, E'activo', 366, 56, 54, NULL, E'administrador', E'no'),
+(1, E'activo', 367, 56, 28, NULL, E'administrador', E'no'),
+(1, E'activo', 368, 56, 61, NULL, E'administrador', E'no'),
+(1, E'activo', 364, 56, 327, NULL, E'responsable', E'si'),
+(1, E'activo', 405, 57, 480, NULL, E'administrador', E'no');
+
+/********************************************F-DAT-MCCH-SSOM-4-02/12/2019********************************************/
