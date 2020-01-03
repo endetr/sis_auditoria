@@ -530,3 +530,27 @@ VALUES
 (1, E'activo', E'RIESGO_PLANIFICACION', E'Riesgo Planificación');
 
 /********************************************F-DAT-MCCH-SSOM-4-02/12/2019********************************************/
+
+/********************************************I-DAT-MCCH-SSOM-5-02/12/2019********************************************/
+-- Insercion de Riesgo Oportunidad
+INSERT INTO ssom.triesgo_oportunidad ("id_usuario_reg", "estado_reg", "id_tipo_ro", "nombre_ro", "codigo_ro")
+VALUES
+(1, E'activo', 2, E'Incumplir el cronograma establecido', NULL),
+(1, E'activo', 2, E'No contar con los recursos (tiempo, transporte, viáticos) para cumplir el cronograma establecido', NULL),
+(1, E'activo', 2, E'No contar en sitio con la documentación necesaria para auditar', NULL),
+(1, E'activo', 2, E'Bloqueos, convulsión social', NULL),
+(1, E'activo', 2, E'Condiciones climatológicas adversas que dificulten el cumplimiento  del cronograma de Auditoria', NULL),
+(1, E'activo', 2, E'Inasistencia de algún integrante del Equipo Auditor', NULL),
+(1, E'activo', 2, E'Poca disposición del personal auditado', NULL),
+(1, E'activo', 4, E'Dividir en grupos el equipo Auditor para cumplir con el cronograma establecido', NULL),
+(1, E'activo', 1, E'Disponibilidad de los auditores Responsables para la realización de las Auditorias a su cargo', NULL),
+(1, E'activo', 1, E'No incluir nuevos procesos en el Programa Anual de Auditorias', NULL),
+(1, E'activo', 1, E'Dificultades para conformar el Equipo Auditor para las Auditorias', NULL),
+(1, E'activo', 1, E'No cumplir con el Programa Anual de Auditorías', NULL),
+(1, E'activo', 3, E'Dos Auditores Internos pueden llevar una Auditoria en caso de no disponer de un Auditor Responsable', NULL),
+(1, E'activo', 3, E'Adelantar las fechas de realización de una Auditoria', NULL),
+(1, E'activo', 4, E'Auditar dos o mas sitios en una sola auditoria', NULL),
+(1, E'activo', 1, E'Otros (Riesgo Programación)', E'OTHER_RPROGRAMM'),
+(1, E'activo', 2, E'Otros (Riesgo Planificación)', E'OTHER_RPLANNIN'),
+(1, E'activo', 4, E'Otros (Oportunidad Planificación)', E'OTHER_OPLANNIN');
+/********************************************F-DAT-MCCH-SSOM-5-02/12/2019********************************************/
