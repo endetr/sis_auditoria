@@ -475,7 +475,7 @@ header("content-type: text/javascript; charset=UTF-8");
             Phx.vista.ProgramarAuditoria.superclass.preparaMenu.call(this);
             //this.getBoton('btnPlanificarAudit').enable();
 
-            //this.getBoton('ant_estado').enable();
+            this.getBoton('ant_estado').enable();
             if(data.estado_wf=='vob_programado' || data.estado_wf=='prog_aprob'){
                 this.getBoton('sig_estado').disable();
             }
@@ -490,6 +490,7 @@ header("content-type: text/javascript; charset=UTF-8");
             //var data = this.getSelectedData();
             Phx.vista.ProgramarAuditoria.superclass.liberaMenu.call(this);
 
+            this.getBoton('ant_estado').disable();
             this.getBoton('sig_estado').disable();
             this.getBoton('diagrama_gantt').disable();
             //this.getBoton('btnObs').disable();
