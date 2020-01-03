@@ -56,6 +56,15 @@ header("content-type: text/javascript; charset=UTF-8");
                 handler : this.onOpenObs,
                 tooltip : '<b>Observaciones</b><br/><b>Observaciones del WF</b>'
             });*/
+            this.addButton('ant_estado', {
+                argument: {estado: 'anterior'},
+                text:'Anterior',
+                grupo:[0,2],
+                iconCls: 'batras',
+                disabled:true,
+                handler:this.antEstado,
+                tooltip: '<b>Volver al Anterior Estado</b>'
+            });
             this.addButton('sig_estado',{
                 text:'Siguiente',
                 grupo:[0,2],
@@ -344,6 +353,55 @@ header("content-type: text/javascript; charset=UTF-8");
             Phx.CP.loadingHide();
             resp.argument.wizard.panel.destroy();
             this.reload();
+        },
+        antEstado: function(res){
+            var data = this.getSelectedData();
+            Phx.CP.loadingHide();
+            Phx.CP.loadWindows('../../../sis_workflow/vista/estado_wf/AntFormEstadoWf.php',
+                'Estado de Wf',
+                {   modal: true,
+                    width: 450,
+                    height: 250
+                },
+                {    data: data,
+                    estado_destino: res.argument.estado
+                },
+                this.idContenedor,'AntFormEstadoWf',
+                {
+                    config:[{
+                        event:'beforesave',
+                        delegate: this.onAntEstado,
+                    }],
+                    scope:this
+                });
+
+        },
+        onAntEstado: function(wizard,resp){
+            console.log('resp',wizard.data.id_help_desk);
+            Phx.CP.loadingShow();
+            var operacion = 'cambiar';
+
+            Ext.Ajax.request({
+                url:'../../sis_auditoria/control/AuditoriaOportunidadMejora/anteriorEstado',
+                params:{
+                    id_aom: wizard.data.id_aom,
+                    id_proceso_wf: resp.id_proceso_wf,
+                    id_estado_wf:  resp.id_estado_wf,
+                    obs: resp.obs,
+                    operacion: operacion
+                },
+                argument:{wizard:wizard},
+                success: this.successAntEstado,
+                failure: this.conexionFailure,
+                timeout: this.timeout,
+                scope: this
+            });
+        },
+        successAntEstado:function(resp){
+            Phx.CP.loadingHide();
+            resp.argument.wizard.panel.destroy()
+            this.reload();
+
         },
         /****** implementamos el Gantt *******/
         diagramGanttDinamico : function(){
