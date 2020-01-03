@@ -553,4 +553,22 @@ VALUES
 (1, E'activo', 1, E'Otros (Riesgo Programación)', E'OTHER_RPROGRAMM'),
 (1, E'activo', 2, E'Otros (Riesgo Planificación)', E'OTHER_RPLANNIN'),
 (1, E'activo', 4, E'Otros (Oportunidad Planificación)', E'OTHER_OPLANNIN');
+
 /********************************************F-DAT-MCCH-SSOM-5-02/12/2019********************************************/
+
+/********************************************I-DAT-MCCH-SSOM-6-02/12/2019********************************************/
+--Insercion de tabla Probabilidad
+INSERT INTO ssom.tprobabilidad ("id_usuario_reg", "estado_reg", "nombre_prob", "desc_prob")
+VALUES
+(1, E'activo', E'Menor', E''),
+(1, E'activo', E'Media', E''),
+(1, E'activo', E'Mayor', E'');
+
+--Insercion de Tabla Impacto
+INSERT INTO ssom.timpacto ("id_usuario_reg", "estado_reg", "nombre_imp", "desc_imp")
+VALUES
+(1, E'activo', E'Bajo', E''),
+(1, E'activo', E'Medio', E''),
+(1, E'activo', E'Alto', E'');
+
+/********************************************F-DAT-MCCH-SSOM-6-02/12/2019********************************************/
