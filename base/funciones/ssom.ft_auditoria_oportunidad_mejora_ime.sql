@@ -124,6 +124,14 @@ BEGIN
 
       --Obtener la gestion actual (sirve para wf)
 
+      if(v_parametros.fecha_prog_inicio < now())then
+        raise EXCEPTION 'La fecha no puede ser menor a la fecha actual, verifique por favor %', v_parametros.fecha_prog_inicio;
+      end if;
+
+      if((v_parametros.fecha_prog_fin < now()) or (v_parametros.fecha_prog_fin < v_parametros.fecha_prog_inicio))then
+        raise EXCEPTION 'La fecha no puede ser menor a la fecha actual ni menor a fecha de inicio, verifique por favor %', v_parametros.fecha_prog_fin;
+      end if;
+
       select
         g.id_gestion,
         g.gestion
@@ -312,6 +320,14 @@ BEGIN
   elsif(p_transaccion='SSOM_AOM_MOD')then
     begin
       --Sentencia de la modificacion
+
+      if(v_parametros.fecha_prog_inicio < now()/*to_char(now(),'dd/mm/YYY')*/)then
+        raise EXCEPTION 'La fecha no puede ser menor a la fecha actual, verifique por favor %', v_parametros.fecha_prog_inicio;
+      end if;
+
+      if((v_parametros.fecha_prog_fin < now()) or (v_parametros.fecha_prog_fin < v_parametros.fecha_prog_inicio))then
+        raise EXCEPTION 'La fecha no puede ser menor a la fecha actual ni menor a fecha de inicio, verifique por favor %', v_parametros.fecha_prog_fin;
+      end if;
 
       update ssom.tauditoria_oportunidad_mejora set
                                                   id_proceso_wf = v_parametros.id_proceso_wf,

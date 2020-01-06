@@ -245,7 +245,22 @@ Phx.vista.RiesgoOportunidad=Ext.extend(Phx.gridInterfaz,{
 		direction: 'DESC'
 	},
 	bdel:true,
-	bsave:true
+	bsave:true,
+    onReloadPage:function(m){
+        this.maestro = m;
+        this.store.baseParams = {id_aom: this.maestro.id_aom};
+        //Ext.apply(this.Cmp.id_centro_costo.store.baseParams,{id_gestion: this.maestro.id_gestion});
+        this.load({params:{start:0, limit:50}});
+        this.Cmp.id_aom.disable(true);
+        console.log("codigo aom:",this.maestro.id_aom);
+    },
+    loadValoresIniciales: function () {
+        Phx.vista.RiesgoOportunidad.superclass.loadValoresIniciales.call(this);
+        this.Cmp.id_aom.setValue(this.maestro.id_aom);
+
+        console.log("codigo parametro:",this.maestro.codigo_parametro);
+    },
+
 	}
 )
 </script>

@@ -66,6 +66,7 @@ Phx.vista.PlanificarAuditoria = {
         this.TabPanelSouth.getItem(this.idContenedor + '-south-1').setDisabled(true);
         this.TabPanelSouth.getItem(this.idContenedor + '-south-2').setDisabled(true);
         this.TabPanelSouth.getItem(this.idContenedor + '-south-3').setDisabled(true);
+        this.TabPanelSouth.getItem(this.idContenedor + '-south-4').setDisabled(true);
     },
     arrayDefaultColumHidden:[/*'documento',*/'codigo_aom','id_tipo_om','id_gconsultivo','nombre_aom2'/*,'lugar'*/,'descrip_aom2',/*'fecha_prev_inicio','fecha_prev_fin',*/
         /*'id_tnorma','id_tobjeto'*/'resumen','recomendacion',/*'fecha_eje_inicio','fecha_eje_fin',*/
@@ -293,6 +294,7 @@ Phx.vista.PlanificarAuditoria = {
         this.TabPanelSouth.getItem(this.idContenedor + '-south-1').setDisabled(true);
         this.TabPanelSouth.getItem(this.idContenedor + '-south-2').setDisabled(true);
         this.TabPanelSouth.getItem(this.idContenedor + '-south-3').setDisabled(true);
+        this.TabPanelSouth.getItem(this.idContenedor + '-south-4').setDisabled(true);
         var data = this.getSelectedData();
         //data.codigo_tipo_cuenta_doc=='SOLVIA'
         console.log("valor de getSelected-->",this.getSelectedData());
@@ -301,6 +303,7 @@ Phx.vista.PlanificarAuditoria = {
             this.TabPanelSouth.getItem(this.idContenedor + '-south-1').setDisabled(false);
             this.TabPanelSouth.getItem(this.idContenedor + '-south-2').setDisabled(false);
             this.TabPanelSouth.getItem(this.idContenedor + '-south-3').setDisabled(false);
+            this.TabPanelSouth.getItem(this.idContenedor + '-south-4').setDisabled(false);
         }
     },
     preparaMenu:function(n){
