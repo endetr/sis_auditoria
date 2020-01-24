@@ -71,22 +71,23 @@ BEGIN
   join wf.tproceso_macro pmwf on tpwf.id_proceso_macro = pmwf.id_proceso_macro
   where ewf.id_estado_wf = p_id_estado_wf;*/  --458170
 
-  --raise EXCEPTION 'holllllllllllllaaaaaaaaaaaaaaa %', p_id_depto;
+  --raise EXCEPTION 'holllllllllllllaaaaaaaaaaaaaaa % % % %', p_id_depto,p_filtro,p_limit,p_start;
 
   if not p_count then
     begin
       v_consulta:='select
             			vfcx.id_funcionario
-                        ,vfcx.desc_funcionario1 as desc_funcionario
+                        ,vfcx.desc_funcionario2 as desc_funcionario
                         ,''''::text  as desc_funcionario_cargo
                         ,1 as prioridad
                         from param.tdepto d
                         join param.tdepto_usuario du on d.id_depto = du.id_depto
                         join segu.tusuario usu on du.id_usuario = usu.id_usuario
                         join orga.vfuncionario_cargo_xtra vfcx on usu.id_persona = vfcx.id_persona
-                        where d.id_depto = '||p_id_depto||' and du.estado_reg = ''activo'' and (vfcx.fecha_asignacion is null or vfcx.fecha_finalizacion >= now()::date) and du.cargo = ''auxiliar'' and '||p_filtro||'
+                        where d.id_depto = '||p_id_depto||' and du.estado_reg = ''activo'' and du.cargo = ''administrador'' and vfcx.fecha_asignacion<=now()::date and (vfcx.fecha_finalizacion is null or vfcx.fecha_finalizacion >= now()::date) and '||p_filtro||'
                         limit '|| p_limit::varchar||' offset '||p_start::varchar ;
 
+      --raise EXCEPTION 'holllllllllllllaaaaaaaaaaaaaaa %', v_consulta;
       FOR g_registros in execute (v_consulta)LOOP
         RETURN NEXT g_registros;
       END LOOP;
@@ -99,7 +100,7 @@ BEGIN
                         join param.tdepto_usuario du on d.id_depto = du.id_depto
                         join segu.tusuario usu on du.id_usuario = usu.id_usuario
                         join orga.vfuncionario_cargo_xtra vfcx on usu.id_persona = vfcx.id_persona
-                        where d.id_depto = '||p_id_depto||' and du.estado_reg = ''activo'' and (vfcx.fecha_asignacion is null or vfcx.fecha_finalizacion >= now()::date) and du.cargo = ''auxiliar'' and '||p_filtro||'
+                        where d.id_depto = '||p_id_depto||' and du.estado_reg = ''activo'' and du.cargo = ''administrador'' and vfcx.fecha_asignacion<=now()::date and (vfcx.fecha_finalizacion is null or vfcx.fecha_finalizacion >= now()::date) and '||p_filtro||'
                         limit '||p_limit::varchar||' offset '||p_start::varchar ;
 
     raise notice '%', v_consulta;
