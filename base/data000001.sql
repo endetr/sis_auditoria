@@ -572,3 +572,8 @@ VALUES
 (1, E'activo', E'Alto', E'');
 
 /********************************************F-DAT-MCCH-SSOM-6-02/12/2019********************************************/
+
+/********************************************I-DAT-MCCH-SSOM-7-23/01/2020********************************************/
+--Se Agrego la Vista General de Proceso de Auditoria
+select pxp.f_insert_tgui ('View General Proceso Auditoria', 'Vista General de Procesos de Auditoria', 'VGPA', 'si', 3, 'sis_auditoria/vista/auditoria_oportunidad_mejora/ViewGeneralProcesoAuditoria.php', 3, '', 'ViewGeneralProcesoAuditoria', 'SSOM');
+/********************************************F-DAT-MCCH-SSOM-7-23/01/2020********************************************/

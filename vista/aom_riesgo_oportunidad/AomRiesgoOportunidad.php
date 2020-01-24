@@ -475,6 +475,43 @@ Phx.vista.AomRiesgoOportunidad=Ext.extend(Phx.gridInterfaz,{
         this.Cmp.id_aom.setValue(this.maestro.id_aom);
         console.log("vavvvvvvvvvvvvvvvvv",this.getCriticidad('Menor','Bajo'));
     },
+    preparaMenu: function(n){
+
+        var tb = Phx.vista.AomRiesgoOportunidad.superclass.preparaMenu.call(this);
+        var data = this.getSelectedData();
+
+        if(this.maestro.estado_wf == 'plani_aprob' || this.maestro.estado_wf == 'vob_planificacion'){
+            tb.items.get('b-new-' + this.idContenedor).disable();
+            tb.items.get('b-edit-' + this.idContenedor).disable();
+            tb.items.get('b-del-' + this.idContenedor).disable();
+            tb.items.get('b-save-' + this.idContenedor).disable();
+        }
+        else{
+            tb.items.get('b-edit-' + this.idContenedor).enable();
+            tb.items.get('b-del-' + this.idContenedor).enable();
+
+        }
+        return tb;
+    },
+    liberaMenu: function(n){
+
+        var tb = Phx.vista.AomRiesgoOportunidad.superclass.preparaMenu.call(this);
+        var data = this.getSelectedData();
+
+        if(this.maestro.estado_wf == 'plani_aprob' || this.maestro.estado_wf == 'vob_planificacion'){
+            tb.items.get('b-new-' + this.idContenedor).disable();
+            tb.items.get('b-edit-' + this.idContenedor).disable();
+            tb.items.get('b-del-' + this.idContenedor).disable();
+            tb.items.get('b-save-' + this.idContenedor).disable();
+        }
+        else{
+            //tb.items.get('b-new-' + this.idContenedor).disable();
+            //tb.items.get('b-save-' + this.idContenedor).disable();
+            tb.items.get('b-edit-' + this.idContenedor).disable();
+            tb.items.get('b-del-' + this.idContenedor).disable();
+        }
+        return tb;
+    },
     onButtonNew:function () {
         var data = this.getSelectedData();
         var self = this;

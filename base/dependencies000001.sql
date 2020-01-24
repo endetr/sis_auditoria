@@ -583,4 +583,9 @@ select wf.f_import_ttipo_documento_estado ('insert','EVIAP','NOCON','propuesta',
 
 /***********************************F-DEP-MCCH-SSOM-3-31/12/2019*****************************************/
 
+/***********************************I-DEP-MCCH-SSOM-4-23/01/2020*****************************************/
+--Se Agrego la Vista General de Proceso de Auditoria
+select pxp.f_insert_testructura_gui ('VGPA', 'RPTAUD');
+/***********************************F-DEP-MCCH-SSOM-4-23/01/2020*****************************************/
+
 

@@ -82,9 +82,9 @@ header("content-type: text/javascript; charset=UTF-8");
             console.log("fecha_prev_inicio->",fecha);
             var summary_team_resp = "";
             var content_summary = "";
-            console.log("[id_responsable, desc_funcionario]-->","("+reg_data.id_funcionario+","+reg_data.desc_funcionario1+")");
+            console.log("[id_responsable, desc_funcionario]-->","("+reg_data.id_funcionario+","+reg_data.desc_funcionario2+")");
 
-            if(reg_data.id_funcionario == null || reg_data.desc_funcionario1 == ""){
+            if(reg_data.id_funcionario == null || reg_data.desc_funcionario2 == ""){
                 if(reg_data.requiere_programacion == "0" && reg_data.requiere_formulario == "0"){
 
                     content_summary = this.string_head_inicio + '<b>'+ fecha +'</b>'+ this.string_head_fin+'<br><br>' ;
@@ -149,10 +149,10 @@ header("content-type: text/javascript; charset=UTF-8");
                             /*console.log("id_aom->",reg);
                             console.log("id_aom->",reg.datos.length);
                             console.log("codigo aom->",reg.datos[0].id_aom);*/
-                            console.log("codigo aom->",reg.datos[0].desc_funcionario1);
+                            console.log("codigo aom->",reg.datos[0].desc_funcionario2);
 
                             for(var i = 0; i < reg.datos.length; i++){
-                                summary_team_resp = summary_team_resp +"-"+reg.datos[i].desc_funcionario1+"<br>";
+                                summary_team_resp = summary_team_resp +"-"+reg.datos[i].desc_funcionario2+"<br>";
                             }
                             //console.log("valor del resumen .....>",reg_data.resumen);
                             content_summary = this.string_head_inicio + '<b>'+ fecha +'</b>'+ this.string_head_fin+'<br><br>' ;

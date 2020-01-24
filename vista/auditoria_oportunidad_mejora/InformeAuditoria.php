@@ -23,7 +23,7 @@ header("content-type: text/javascript; charset=UTF-8");
         //v_oportunidad: 'si',
         string_head_inicion: "En fecha ",
         string_head_fin: " conforme al Programa Anual de Auditorias Internas de la Empresa se realizó la auditoria:\n",
-        string_title_responsable: "El Equipo auditor estuvo conformado por:\n",
+        string_title_responsable: "El Equipo auditor esta conformado por:\n",
         string_glosa: "Se visitaron los trabajos en las estructuras 104 (Excavación); 105 (Nivelación y puesta de Grillas); 108 (Excavación) en la zona de Paracti, y levantamiento de estructuras 8 y 10 en Santibáñez.\n" +
             "El equipo auditor pondera el compromiso y responsabilidad del personal del Area y Proceso Auditados, Asi como el personal de la Gerencia y Administración.",
         string_glosa_fin: "Como resultado de la auditoria se encontraron oportunidades de mejora que se presentan en el Informe de No Conformidades.\n",
@@ -45,14 +45,14 @@ header("content-type: text/javascript; charset=UTF-8");
                 handler : this.onBtnInformeAuditoria,
                 tooltip : '<b>Registrar datos generales de Auditoria</b>'
             });
-            this.addButton('btnExamples', {
+            /*this.addButton('btnExamples', {
                 text : 'Examples',
-                iconCls : 'bballot', /*'bballot','block','bgood','block'*/
+                iconCls : 'bballot', //'bballot','block','bgood','block'
                 disabled : false,
                 handler : this.onBtnExamples,
                 //handler : this.validarEstado,
                 tooltip : '<b>Registrar datos generales de Auditoria</b>'
-            });
+            });*/
             this.addButton('btnEjecutar', {
                 text : 'Ejecutar',
                 iconCls : 'bgood',/*'badelante','bballot','block','block','bwrong','bok'*/
@@ -451,7 +451,7 @@ header("content-type: text/javascript; charset=UTF-8");
             this.mostrarComponente(this.Cmp.fecha_eje_inicio);
 
         },
-        onBtnExamples: function(){
+        /*onBtnExamples: function(){
             var rec = this.sm.getSelected();  //los valores del registro seleccionado
 
             console.log ('Data',rec.data);
@@ -461,7 +461,7 @@ header("content-type: text/javascript; charset=UTF-8");
                 height:'90%'
             }, rec,this.idContenedor, 'Form'); // clase de la vista hijo
 
-        },
+        },*/
 
     };
 </script>

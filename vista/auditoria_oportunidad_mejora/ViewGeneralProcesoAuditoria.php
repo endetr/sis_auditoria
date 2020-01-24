@@ -20,10 +20,10 @@ header("content-type: text/javascript; charset=UTF-8");
         pPrefijo: '',
         pSerie: '',
 
-        bedit:true,
-        bnew:true,
+        bedit:false,
+        bnew:false,
         bsave:false,
-        bdel:true,
+        bdel:false,
         require:'../../../sis_auditoria/vista/auditoria_oportunidad_mejora/AuditoriaOportunidadMejora.php',
         requireclase:'Phx.vista.AuditoriaOportunidadMejora',
         title:' :: Formulario Registro de Auditoria - Oportunidad Mejora',
@@ -31,50 +31,31 @@ header("content-type: text/javascript; charset=UTF-8");
 
         constructor: function(config) {
             this.idContenedor = config.idContenedor;
-            this.initButtons=[this.cmbTipoAuditoria];
+            //this.initButtons=[this.cmbTipoAuditoria];
             Phx.vista.ViewGeneralProcesoAuditoria.superclass.constructor.call(this,config);
             this.init();
-            this.load({params:{start:0, limit:this.tam_pag,v_tpo_audit:'Todos', v_estado_wfp: 'programado', v_estado_wfp1:'vob_programado', v_estado_wfp2:'observado',v_estado_wfp3:'prog_aprob' /*, v_tipo_auditoria:'AI'*/}});
+            this.load({params:{start:0, limit:this.tam_pag/*,v_tpo_audit:'Todos', v_estado_wfp: 'programado', v_estado_wfp1:'vob_programado', v_estado_wfp2:'observado',v_estado_wfp3:'prog_aprob' *//*, v_tipo_auditoria:'AI'*/}});
             this.getBoton('btnPlanificarAudit').hide();
             this.getBoton('btnInformeOM').hide();
             this.getBoton('btnHelpAOM').hide();
 
-            /*this.addButton('ant_estado', {
-                argument: {estado: 'anterior'},
-                text:'Anterior',
-                grupo:[0,2],
-                iconCls: 'batras',
-                disabled:true,
-                handler:this.antEstado,
-                tooltip: '<b>Pasar al Anterior Estado</b>'
-            });*/
-            /*this.addButton('btnObs',{//#11
-                text :'Obs Wf',
-                grupo:[0,1,2],
-                iconCls : 'bchecklist',
-                disabled: true,
-                handler : this.onOpenObs,
-                tooltip : '<b>Observaciones</b><br/><b>Observaciones del WF</b>'
-            });*/
-            this.addButton('sig_estado',{
-                text:'Siguiente',
-                grupo:[0,2],
-                iconCls: 'badelante',
-                disabled: true,
-                handler: this.sigEstado,
-                tooltip: '<b>Pasar al Siguiente Estado</b>'
-            });
-            this.cmbTipoAuditoria.on('select', function(){
+            /*this.cmbTipoAuditoria.on('select', function(){
                 if(this.validarFiltros()){
                     this.capturaFiltros();
                 }
 
-            },this);
+            },this);*/
             this.addBotonesGantt();
 
         },
         tam_pag:50,
-        cmbTipoAuditoria:new Ext.form.ComboBox({
+        tipoStore: 'GroupingStore',//GroupingStore o JsonStore #
+        remoteGroup: true,
+        groupField: 'nombre_estado',
+        viewGrid: new Ext.grid.GroupingView({
+            forceFit: false
+        }),
+        /*cmbTipoAuditoria:new Ext.form.ComboBox({
             fieldLabel: 'id_tipo_auditoria',
             allowBlank: true,
             emptyText:'Tipo Auditoria...',
@@ -112,7 +93,7 @@ header("content-type: text/javascript; charset=UTF-8");
             this.store.baseParams.v_estado_wfp2 = 'observado';
             this.store.baseParams.v_estado_wfp3 = 'prog_aprob';
 
-            //this.load({params:{start:0, limit:this.tam_pag,v_tpo_audit:'AI', v_estado_wfp: 'programado', v_estado_wfp1:'vob_programado', v_estado_wfp2:'observado',v_estado_wfp3:'prog_aprob' /*, v_tipo_auditoria:'AI'*/}});
+            //this.load({params:{start:0, limit:this.tam_pag,v_tpo_audit:'AI', v_estado_wfp: 'programado', v_estado_wfp1:'vob_programado', v_estado_wfp2:'observado',v_estado_wfp3:'prog_aprob'}});
             this.load();
         },
         validarFiltros:function(){
@@ -137,7 +118,7 @@ header("content-type: text/javascript; charset=UTF-8");
 
                 Phx.vista.ViewGeneralProcesoAuditoria.superclass.onButtonAct.call(this);
             }
-        },
+        },*/
         arrayDefaultColumHidden:[/*'documento',*/'codigo_aom','id_gconsultivo','nombre_aom2','lugar','descrip_aom2','fecha_prev_inicio','fecha_prev_fin',
             'id_tnorma','id_tobjeto','resumen','recomendacion','fecha_eje_inicio','fecha_eje_fin',
             'formulario_ingreso','id_proceso_wf','id_estado_wf','estado_form_ingreso','usuario_ai'],
@@ -282,63 +263,7 @@ header("content-type: text/javascript; charset=UTF-8");
             }
 
         },
-        /**
-         * ======================================================================
-         * =====================< worflow Process start >========================
-         * ======================================================================
-         * */
-        sigEstado:function(){
-            var data = this.getSelectedData();
-            this.objWizard = Phx.CP.loadWindows('../../../sis_workflow/vista/estado_wf/FormEstadoWf.php',
-                'Estado de Wf',
-                {
-                    modal:true,
-                    width:700,
-                    height:450
-                }, {data:{
-                        id_aom:data.id_aom,
-                        id_estado_wf:data.id_estado_wf,
-                        id_proceso_wf:data.id_proceso_wf,
 
-                    }}, this.idContenedor,'FormEstadoWf',
-                {
-                    config:[{
-                        event:'beforesave',
-                        delegate: this.onSaveWizard,
-
-                    }],
-
-                    scope:this
-                });
-
-        },
-        onSaveWizard:function(wizard,resp){
-
-            Ext.Ajax.request({
-                url:'../../sis_auditoria/control/AuditoriaOportunidadMejora/siguienteEstado',
-                params:{
-                    id_aom:      wizard.data.id_aom,
-                    id_proceso_wf_act:  resp.id_proceso_wf_act,
-                    id_estado_wf_act:   resp.id_estado_wf_act,
-                    id_tipo_estado:     resp.id_tipo_estado,
-                    id_funcionario_wf:  resp.id_funcionario_wf,
-                    id_depto_wf:        resp.id_depto_wf,
-                    obs:                resp.obs,
-                    json_procesos:      Ext.util.JSON.encode(resp.procesos)
-                },
-                success:this.successWizard,
-                failure: this.conexionFailure,
-                argument:{wizard:wizard},
-                timeout:this.timeout,
-                scope:this
-            });
-
-        },
-        successWizard:function(resp){
-            Phx.CP.loadingHide();
-            resp.argument.wizard.panel.destroy();
-            this.reload();
-        },
         /****** implementamos el Gantt *******/
         diagramGanttDinamico : function(){
             var data=this.sm.getSelected().data.id_proceso_wf;
@@ -385,51 +310,19 @@ header("content-type: text/javascript; charset=UTF-8");
                 scope: this
             });
         },
-        onOpenObs:function() {//#11
-            var rec=this.sm.getSelected();
 
-            var data = {
-                id_proceso_wf: rec.data.id_proceso_wf,
-                id_estado_wf: rec.data.id_estado_wf,
-                num_tramite: rec.data.num_tramite
-            }
-
-            Phx.CP.loadWindows('../../../sis_workflow/vista/obs/Obs.php',
-                'Observaciones del WF',
-                {
-                    width:'80%',
-                    height:'70%'
-                },
-                data,
-                this.idContenedor,
-                'Obs'
-            )
-        },
         /*==================================< End worflow method >=====================================*/
         preparaMenu:function(n){
             var data = this.getSelectedData();
             Phx.vista.ViewGeneralProcesoAuditoria.superclass.preparaMenu.call(this);
             //this.getBoton('btnPlanificarAudit').enable();
-
-            //this.getBoton('ant_estado').enable();
-            if(data.estado_wf=='vob_programado' || data.estado_wf=='prog_aprob'){
-                this.getBoton('sig_estado').disable();
-            }
-            else{
-                this.getBoton('sig_estado').enable();
-            }
             this.getBoton('diagrama_gantt').enable();
-            //this.getBoton('btnObs').enable();
 
         },
         liberaMenu:function(n){
             //var data = this.getSelectedData();
             Phx.vista.ViewGeneralProcesoAuditoria.superclass.liberaMenu.call(this);
-
-            this.getBoton('sig_estado').disable();
             this.getBoton('diagrama_gantt').disable();
-            //this.getBoton('btnObs').disable();
-
         },
         formProgramarAuditoria: function () {
             //Muestra formulario de Auditoria

@@ -103,17 +103,17 @@ Phx.vista.CronogramaEquipoResponsable=Ext.extend(Phx.gridInterfaz,{
                     id: 'id_equipo_responsable',
                     root: 'datos',
                     sortInfo: {
-                        field: 'desc_funcionario1',
+                        field: 'desc_funcionario2',
                         direction: 'ASC'
                     },
                     totalProperty: 'total',
-                    fields: ['id_equipo_responsable', 'desc_funcionario1'],
+                    fields: ['id_equipo_responsable', 'desc_funcionario2'],
                     remoteSort: true,
-                    baseParams: {par_filtro: 'desc_funcionario1'}
+                    baseParams: {par_filtro: 'desc_funcionario2'}
                 }),
                 valueField: 'id_equipo_responsable',
-                displayField: 'desc_funcionario1',
-                gdisplayField: 'desc_funcionario1',
+                displayField: 'desc_funcionario2',
+                gdisplayField: 'desc_funcionario2',
                 hiddenName: 'id_equipo_responsable',
                 enableMultiSelect: true,
                 triggerAction: 'all',
@@ -127,13 +127,13 @@ Phx.vista.CronogramaEquipoResponsable=Ext.extend(Phx.gridInterfaz,{
                 resizable:true,
                 minChars: 2,
                 renderer : function(value, p, record) {
-                    return String.format('{0}', record.data['desc_funcionario1']);
+                    return String.format('{0}', record.data['desc_funcionario2']);
                 },
             },
             //type: 'ComboBox',
             type: 'AwesomeCombo',
             id_grupo: 0,
-            filters: {pfiltro: 'vfc.desc_funcionario1',type: 'string'},
+            filters: {pfiltro: 'vfc.desc_funcionario2',type: 'string'},
             grid: true,
             form: true
         },
@@ -296,7 +296,7 @@ Phx.vista.CronogramaEquipoResponsable=Ext.extend(Phx.gridInterfaz,{
 		{name:'fecha_mod', type: 'date',dateFormat:'Y-m-d H:i:s.u'},
 		{name:'usr_reg', type: 'string'},
 		{name:'usr_mod', type: 'string'},
-        {name:'desc_funcionario1', type: 'string'},
+        {name:'desc_funcionario2', type: 'string'},
 		
 	],
 	sortInfo:{
@@ -340,7 +340,7 @@ Phx.vista.CronogramaEquipoResponsable=Ext.extend(Phx.gridInterfaz,{
             }
         }, this);
         //this.inicarEvento();
-        this.Cmp.id_equipo_responsable.store.baseParams ={par_filtro:'vfc.desc_funcionario1',p_id_aom: this.maestro.id_aom,p_id_cronograma:this.maestro.id_cronograma};
+        this.Cmp.id_equipo_responsable.store.baseParams ={par_filtro:'vfc.desc_funcionario2',p_id_aom: this.maestro.id_aom,p_id_cronograma:this.maestro.id_cronograma};
         this.Cmp.id_equipo_responsable.lastQuery = null;
     },
     onButtonEdit:function(){
@@ -364,14 +364,14 @@ Phx.vista.CronogramaEquipoResponsable=Ext.extend(Phx.gridInterfaz,{
         }, this);
 
         //this.inicarEvento();
-        this.Cmp.id_equipo_responsable.store.baseParams ={par_filtro:'vfc.desc_funcionario1',pe_id_aom: this.maestro.id_aom,pe_id_cronograma:this.maestro.id_cronograma,pe_id_equipo_responsable:this.getSelectedData().id_equipo_responsable};
+        this.Cmp.id_equipo_responsable.store.baseParams ={par_filtro:'vfc.desc_funcionario2',pe_id_aom: this.maestro.id_aom,pe_id_cronograma:this.maestro.id_cronograma,pe_id_equipo_responsable:this.getSelectedData().id_equipo_responsable};
         this.Cmp.id_equipo_responsable.lastQuery = null;
 
     },
     inicarEvento:function () {
         // console.log(this.maestro.id_aom);
 
-        this.Cmp.id_equipo_responsable.store.baseParams ={par_filtro:'vfc.desc_funcionario1',p_id_aom: this.maestro.id_aom,p_id_cronograma:this.maestro.id_cronograma};
+        this.Cmp.id_equipo_responsable.store.baseParams ={par_filtro:'vfc.desc_funcionario2',p_id_aom: this.maestro.id_aom,p_id_cronograma:this.maestro.id_cronograma};
         this.Cmp.id_equipo_responsable.lastQuery = null;
 
 

@@ -39,7 +39,7 @@ header("content-type: text/javascript; charset=UTF-8");
             this.getBoton('btnInformeOM').hide();
             this.getBoton('btnHelpAOM').hide();
 
-            /*this.addButton('ant_estado', {
+            this.addButton('ant_estado', {
                 argument: {estado: 'anterior'},
                 text:'Anterior',
                 grupo:[0,2],
@@ -47,7 +47,7 @@ header("content-type: text/javascript; charset=UTF-8");
                 disabled:true,
                 handler:this.antEstado,
                 tooltip: '<b>Pasar al Anterior Estado</b>'
-            });*/
+            });
             /*this.addButton('btnObs',{//#11
                 text :'Obs Wf',
                 grupo:[0,1,2],
@@ -56,15 +56,6 @@ header("content-type: text/javascript; charset=UTF-8");
                 handler : this.onOpenObs,
                 tooltip : '<b>Observaciones</b><br/><b>Observaciones del WF</b>'
             });*/
-            this.addButton('ant_estado', {
-                argument: {estado: 'anterior'},
-                text:'Anterior',
-                grupo:[0,2],
-                iconCls: 'batras',
-                disabled:true,
-                handler:this.antEstado,
-                tooltip: '<b>Volver al Anterior Estado</b>'
-            });
             this.addButton('sig_estado',{
                 text:'Siguiente',
                 grupo:[0,2],
@@ -356,25 +347,50 @@ header("content-type: text/javascript; charset=UTF-8");
         },
         antEstado: function(res){
             var data = this.getSelectedData();
-            Phx.CP.loadingHide();
-            Phx.CP.loadWindows('../../../sis_workflow/vista/estado_wf/AntFormEstadoWf.php',
-                'Estado de Wf',
-                {   modal: true,
-                    width: 450,
-                    height: 250
-                },
-                {    data: data,
-                    estado_destino: res.argument.estado
-                },
-                this.idContenedor,'AntFormEstadoWf',
-                {
-                    config:[{
-                        event:'beforesave',
-                        delegate: this.onAntEstado,
-                    }],
-                    scope:this
-                });
 
+            //if((data.id_tnorma =='' || data.id_tnorma == null) && (data.id_tobjeto =='' || data.id_tobjeto == null) && (data.lugar =="" || data.lugar ==null) ){
+            Ext.Ajax.request({
+                url:'../../sis_auditoria/control/AuditoriaOportunidadMejora/listarAuditoriaOportunidadMejora',
+                params:{bandera:'estaPlanificado',bandera_id_aom: data.id_aom,start:0, limit:1},
+                dataType:"JSON",
+                success:function (resp) {
+                    var reg = Ext.util.JSON.decode(Ext.util.Format.trim(resp.responseText));
+                    console.log("reg->",reg.datos);
+                    console.log("tamaño de reg->",reg.datos.length);
+                    if(reg.datos.length>0){
+                        Ext.Msg.alert("status","La Auditoria ya esta en proceso de Planificación, ya no es posible regresar al estado anterior.!!!");
+                    }
+                    else{
+                        Phx.CP.loadingHide();
+                        Phx.CP.loadWindows('../../../sis_workflow/vista/estado_wf/AntFormEstadoWf.php',
+                            'Estado de Wf',
+                            {   modal: true,
+                                width: 450,
+                                height: 250
+                            },
+                            {    data: data,
+                                estado_destino: res.argument.estado
+                            },
+                            this.idContenedor,'AntFormEstadoWf',
+                            {
+                                config:[{
+                                    event:'beforesave',
+                                    delegate: this.onAntEstado,
+                                }],
+                                scope:this
+                            });
+                    }
+
+                },
+                failure: this.conexionFailure,
+                timeout:this.timeout,
+                scope:this
+            });
+            //}
+            /*else{
+                Ext.Msg.alert("status","La Auditoria ya esta en proceso de Planificación, ya no es posible regresar al estado anterior.!!!");
+            }*/
+            
         },
         onAntEstado: function(wizard,resp){
             console.log('resp',wizard.data.id_help_desk);
@@ -475,9 +491,9 @@ header("content-type: text/javascript; charset=UTF-8");
             Phx.vista.ProgramarAuditoria.superclass.preparaMenu.call(this);
             //this.getBoton('btnPlanificarAudit').enable();
 
-            this.getBoton('ant_estado').enable();
             if(data.estado_wf=='vob_programado' || data.estado_wf=='prog_aprob'){
                 this.getBoton('sig_estado').disable();
+                this.getBoton('ant_estado').enable();
             }
             else{
                 this.getBoton('sig_estado').enable();

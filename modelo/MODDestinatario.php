@@ -37,7 +37,7 @@ class MODDestinatario extends MODbase{
 		$this->captura('usr_mod','varchar');
 		$this->captura('valor_parametro','varchar');
 		$this->captura('codigo_parametro','varchar');
-		$this->captura('desc_funcionario1','text');
+		$this->captura('desc_funcionario2','text');
 
 		//Ejecuta la instruccion
 		$this->armarConsulta();

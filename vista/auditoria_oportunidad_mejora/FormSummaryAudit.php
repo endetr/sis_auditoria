@@ -16,7 +16,7 @@ header("content-type: text/javascript; charset=UTF-8");
 
         string_head_inicio: "En fecha ",
         string_head_fin: " conforme al Programa Anual de Auditorias Internas de la Empresa se realizó la auditoria:",
-        string_title_responsable: "El Equipo auditor estuvo conformado por:",
+        string_title_responsable: "El Equipo auditor esta conformado por:",
         string_boddy: "Se visitaron los trabajos en las estructuras 104 (Excavación); 105 (Nivelación y puesta de Grillas); 108 (Excavación) en la zona de Paracti, y levantamiento de estructuras 8 y 10 en Santibáñez." +
             "El equipo auditor pondera el compromiso y responsabilidad del personal del Area y Proceso Auditados, Asi como el personal de la Gerencia y Administración.",
         string_glosa: "Como resultado de la auditoria se encontraron oportunidades de mejora que se presentan en el Informe de No Conformidades.",
@@ -90,9 +90,9 @@ header("content-type: text/javascript; charset=UTF-8");
             console.log("fecha_prev_inicio->",fecha);
             var summary_team_resp = "";
             var content_summary = "";
-            console.log("[id_responsable, desc_funcionario]-->","("+reg_data.id_funcionario+","+reg_data.desc_funcionario1+")");
+            console.log("[id_responsable, desc_funcionario]-->","("+reg_data.id_funcionario+","+reg_data.desc_funcionario2+")");
 
-            if(reg_data.id_funcionario == null || reg_data.desc_funcionario1 == ""){
+            if(reg_data.id_funcionario == null || reg_data.desc_funcionario2 == ""){
                 if(reg_data.requiere_programacion == "0" && reg_data.requiere_formulario == "0"){
 
                     content_summary = this.string_head_inicio + '<b>'+ fecha +'</b>'+ this.string_head_fin+'<br><br>' ;
@@ -114,7 +114,7 @@ header("content-type: text/javascript; charset=UTF-8");
                         this.string_head_inicio = "Fecha de Reunion: ";
                         var temario = "1. Temario 1<br>"+"2. Temario 2<br>"+"3. Temario 3<br>"+"4. Tem .....<br>"+"5. Conclusiones<br><br>";
                         var analisis_seguiento = "1. Analisis y Seguiento 1<br>"+"2. Analisis y Seguiento 2<br><br>"
-                        //alert("Hola Soy OM",reg_data.id_funcionario + data.desc_funcionario1);
+                        //alert("Hola Soy OM",reg_data.id_funcionario + data.desc_funcionario2);
                         content_summary = '<b>'+this.string_head_inicio+'</b>'+ fecha +'<br>' ;
                         content_summary+= '<b>Lugar: </b>'+reg_data.lugar +'<br>';
                         content_summary+= '<b>Convocada por: </b>'+reg_data.nombre_gconsultivo+'<br>';
@@ -157,10 +157,10 @@ header("content-type: text/javascript; charset=UTF-8");
                             /*console.log("id_aom->",reg);
                             console.log("id_aom->",reg.datos.length);
                             console.log("codigo aom->",reg.datos[0].id_aom);*/
-                            console.log("codigo aom->",reg.datos[0].desc_funcionario1);
+                            console.log("codigo aom->",reg.datos[0].desc_funcionario2);
 
                             for(var i = 0; i < reg.datos.length; i++){
-                                summary_team_resp = summary_team_resp +"-"+reg.datos[i].desc_funcionario1+"<br>";
+                                summary_team_resp = summary_team_resp +"-"+reg.datos[i].desc_funcionario2+"<br>";
                             }
                             //console.log("valor del resumen .....>",reg_data.resumen);
                             content_summary = this.string_head_inicio + '<b>'+ fecha +'</b>'+ this.string_head_fin+'<br><br>' ;

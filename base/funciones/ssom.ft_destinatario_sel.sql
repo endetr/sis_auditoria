@@ -61,7 +61,7 @@ BEGIN
 						usu2.cuenta as usr_mod,
                         para.valor_parametro,
                         para.codigo_parametro,
-                        vfc.desc_funcionario1
+                        vfc.desc_funcionario2
 						from ssom.tdestinatario dest
 						inner join segu.tusuario usu1 on usu1.id_usuario = dest.id_usuario_reg
 						left join segu.tusuario usu2 on usu2.id_usuario = dest.id_usuario_mod

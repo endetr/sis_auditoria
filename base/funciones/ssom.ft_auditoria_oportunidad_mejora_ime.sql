@@ -124,11 +124,11 @@ BEGIN
 
       --Obtener la gestion actual (sirve para wf)
 
-      if(v_parametros.fecha_prog_inicio < now())then
+      if(v_parametros.fecha_prog_inicio < to_char(now(),'DD/MM/YYYY')::date)then
         raise EXCEPTION 'La fecha no puede ser menor a la fecha actual, verifique por favor %', v_parametros.fecha_prog_inicio;
       end if;
 
-      if((v_parametros.fecha_prog_fin < now()) or (v_parametros.fecha_prog_fin < v_parametros.fecha_prog_inicio))then
+      if((v_parametros.fecha_prog_fin < to_char(now(),'DD/MM/YYYY')::date) or (v_parametros.fecha_prog_fin < v_parametros.fecha_prog_inicio))then
         raise EXCEPTION 'La fecha no puede ser menor a la fecha actual ni menor a fecha de inicio, verifique por favor %', v_parametros.fecha_prog_fin;
       end if;
 
@@ -320,13 +320,14 @@ BEGIN
   elsif(p_transaccion='SSOM_AOM_MOD')then
     begin
       --Sentencia de la modificacion
+      if (v_parametros.estado_wf = 'prog_aprob') then
+        if((v_parametros.fecha_eje_inicio < v_parametros.fecha_prog_inicio))then
+          raise EXCEPTION 'La fecha inicio de ejecucion no puede ser menor a las fecha de programacion, verifique por favor %', v_parametros.fecha_eje_inicio;
+        end if;
 
-      if(v_parametros.fecha_prog_inicio < now()/*to_char(now(),'dd/mm/YYY')*/)then
-        raise EXCEPTION 'La fecha no puede ser menor a la fecha actual, verifique por favor %', v_parametros.fecha_prog_inicio;
-      end if;
-
-      if((v_parametros.fecha_prog_fin < now()) or (v_parametros.fecha_prog_fin < v_parametros.fecha_prog_inicio))then
-        raise EXCEPTION 'La fecha no puede ser menor a la fecha actual ni menor a fecha de inicio, verifique por favor %', v_parametros.fecha_prog_fin;
+        if((v_parametros.fecha_eje_fin < v_parametros.fecha_prog_inicio) or (v_parametros.fecha_eje_fin < v_parametros.fecha_eje_inicio))then
+          raise EXCEPTION 'La fecha fin ejecucion no puede ser menor a las fecha de programacion ni menor a fecha inicio de ejecucion, verifique por favor %', v_parametros.fecha_prog_fin;
+        end if;
       end if;
 
       update ssom.tauditoria_oportunidad_mejora set

@@ -70,6 +70,11 @@ header("content-type: text/javascript; charset=UTF-8");
                 tooltip: '<b>Pasar al Siguiente Estado</b>'
             });
             this.addBotonesGantt();
+            this.TabPanelSouth.getItem(this.idContenedor + '-south-0').setDisabled(true);
+            this.TabPanelSouth.getItem(this.idContenedor + '-south-1').setDisabled(true);
+            this.TabPanelSouth.getItem(this.idContenedor + '-south-2').setDisabled(true);
+            this.TabPanelSouth.getItem(this.idContenedor + '-south-3').setDisabled(true);
+            this.TabPanelSouth.getItem(this.idContenedor + '-south-4').setDisabled(true);
         },
         arrayDefaultColumHidden:[/*'documento',*/'codigo_aom','nombre_aom2',/*'lugar',*/'descrip_aom2',/*'fecha_prev_inicio','fecha_prev_fin',*/
             /*'id_tnorma','id_tobjeto',*/'id_tipo_om','id_gconsultivo','resumen','recomendacion','fecha_eje_inicio','fecha_eje_fin',
@@ -98,12 +103,26 @@ header("content-type: text/javascript; charset=UTF-8");
                 width: '60%',
                 cls:'AuditoriaNpn'
             },
-            {
+            /*{
                 url:'../../../sis_auditoria/vista/actividad/Actividad.php',
                 title:'Cronograma',
                 height:'50%',
                 width: '40%',
                 cls:'Actividad'
+            }*/
+            {
+                url:'../../../sis_auditoria/vista/cronograma/Cronograma.php',
+                title:'Cronograma',
+                height:'50%',
+                width: '40%',
+                cls:'Cronograma'
+            },
+            {
+                url:'../../../sis_auditoria/vista/aom_riesgo_oportunidad/AomRiesgoOportunidad.php',
+                title:'Riesgo Oportunidad',
+                height:'50%',
+                width: '40%',
+                cls:'AomRiesgoOportunidad'
             }
         ],
 

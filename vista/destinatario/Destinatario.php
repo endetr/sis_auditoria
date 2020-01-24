@@ -148,17 +148,17 @@ Phx.vista.Destinatario=Ext.extend(Phx.gridInterfaz,{
 					id: 'id_funcionario',
 					root: 'datos',
 					sortInfo: {
-						field: 'desc_funcionario1',
+						field: 'desc_funcionario2',
 						direction: 'ASC'
 					},
 					totalProperty: 'total',
-					fields: ['id_funcionario', 'desc_funcionario1'],
+					fields: ['id_funcionario', 'desc_funcionario2'],
 					remoteSort: true,
-					baseParams: {par_filtro: 'vfc.desc_funcionario1'}
+					baseParams: {par_filtro: 'vfc.desc_funcionario2'}
 				}),
 				valueField: 'id_funcionario',
-				displayField: 'desc_funcionario1',
-				gdisplayField: 'desc_funcionario1',
+				displayField: 'desc_funcionario2',
+				gdisplayField: 'desc_funcionario2',
 				hiddenName: 'id_funcionario',
 				forceSelection: true,
 				typeAhead: false,
@@ -171,7 +171,7 @@ Phx.vista.Destinatario=Ext.extend(Phx.gridInterfaz,{
 				gwidth: 150,
 				minChars: 2,
 				renderer : function(value, p, record) {
-					return String.format('{0}', record.data['desc_funcionario1']);
+					return String.format('{0}', record.data['desc_funcionario2']);
 				}
 			},
 			type: 'ComboBox',
@@ -343,7 +343,7 @@ Phx.vista.Destinatario=Ext.extend(Phx.gridInterfaz,{
 		{name:'usr_mod', type: 'string'},
 		{name:'valor_parametro', type: 'string'},
 		{name:'codigo_parametro', type: 'string'},
-		{name:'desc_funcionario1', type: 'string'},
+		{name:'desc_funcionario2', type: 'string'},
 
 	],
 	sortInfo:{
@@ -375,12 +375,12 @@ Phx.vista.Destinatario=Ext.extend(Phx.gridInterfaz,{
         console.log('maestritoooooooooo',this.maestro);*/
 
         if(this.maestro.codigo_tpo_aom == 'AI'){
-            this.Cmp.id_parametro.store.baseParams ={par_filtro:'vfc.desc_funcionario1',tipo_parametro_ed:'TIPO_PARTICIPACION',p_codigo_tipo_aom_ed: this.maestro.codigo_tpo_aom,p_codigo_parametro_ed:"''MEQ'',''ETE'',''OTHERS'',''INV''"};
+            this.Cmp.id_parametro.store.baseParams ={par_filtro:'vfc.desc_funcionario2',tipo_parametro_ed:'TIPO_PARTICIPACION',p_codigo_tipo_aom_ed: this.maestro.codigo_tpo_aom,p_codigo_parametro_ed:"''MEQ'',''ETE'',''OTHERS'',''INV''"};
             this.Cmp.id_parametro.lastQuery = null;
             //this.Cmp.id_equipo_responsable.lastQuery = null;
         }
         if(this.maestro.codigo_tpo_aom == 'OM'){
-            this.Cmp.id_parametro.store.baseParams ={par_filtro:'vfc.desc_funcionario1',tipo_parametro_ed:'TIPO_PARTICIPACION',p_codigo_tipo_aom_ed: this.maestro.codigo_tpo_aom,p_codigo_parametro_ed:"''MEQ'',''OTHERS'',''INV''"};
+            this.Cmp.id_parametro.store.baseParams ={par_filtro:'vfc.desc_funcionario2',tipo_parametro_ed:'TIPO_PARTICIPACION',p_codigo_tipo_aom_ed: this.maestro.codigo_tpo_aom,p_codigo_parametro_ed:"''MEQ'',''OTHERS'',''INV''"};
             this.Cmp.id_parametro.lastQuery = null;
             //this.Cmp.id_equipo_responsable.lastQuery = null;
         }
@@ -450,7 +450,7 @@ Phx.vista.Destinatario=Ext.extend(Phx.gridInterfaz,{
         console.log("entro a  Edit-->", data);
 
 
-        this.Cmp.id_parametro.store.baseParams ={par_filtro:'vfc.desc_funcionario1',tipo_parametro_ed:'TIPO_PARTICIPACION',p_codigo_tpo_aom_ed: this.maestro.codigo_tpo_aom,p_codigo_parametro_ed:'ETE'};
+        this.Cmp.id_parametro.store.baseParams ={par_filtro:'vfc.desc_funcionario2',tipo_parametro_ed:'TIPO_PARTICIPACION',p_codigo_tpo_aom_ed: this.maestro.codigo_tpo_aom,p_codigo_parametro_ed:'ETE'};
         //this.Cmp.id_equipo_responsable.lastQuery = null;
         if(this.maestro.codigo_tpo_aom == 'OM'){
             if(data.codigo_parametro == 'ETI' || data.codigo_parametro == 'RESP'){

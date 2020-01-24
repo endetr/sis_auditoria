@@ -94,6 +94,12 @@ class ACTAuditoriaOportunidadMejora extends ACTbase{
             $this->objParam->addFiltro("aom.estado_wf = ''".$this->objParam->getParametro('v_estado_wf_om')."''"." and "."tau.codigo_tpo_aom = ''".$this->objParam->getParametro('v_tipo_om')."''");
         }/*** fin ***/
         /*=================================================================================================================================================*/
+        //Condicional para validar si una auditoria ya esta planificada o no
+        if($this->objParam->getParametro('bandera')!=''){
+            //var_dump($this->objParam->getParametro('bandera')); exit;
+            //var_dump($this->objParam->getParametro('bandera_id_aom')); exit;
+            $this->objParam->addFiltro("aom.id_aom = ".$this->objParam->getParametro('bandera_id_aom')." and ((aom.id_tnorma is not null or aom.id_tnorma <> '''') or (aom.id_tobjeto is not null or aom.id_tobjeto <> '''') or (aom.lugar <> '''' or aom.lugar <> null)) ");
+        }
 
 		if($this->objParam->getParametro('tipoReporte')=='excel_grid' || $this->objParam->getParametro('tipoReporte')=='pdf_grid'){
 			$this->objReporte = new Reporte($this->objParam,$this);

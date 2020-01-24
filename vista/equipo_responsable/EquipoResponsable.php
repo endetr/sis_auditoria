@@ -163,18 +163,18 @@ Phx.vista.EquipoResponsable=Ext.extend(Phx.gridInterfaz,{
 					id: 'id_funcionario',
 					root: 'datos',
 					sortInfo: {
-						field: 'desc_funcionario1',
+						field: 'desc_funcionario2',
 						direction: 'DESC'
 					},
 					totalProperty: 'total',
 					//fields: ['id_responsable', 'desc_funcionario1'],
-					fields: ['id_funcionario', 'desc_funcionario1','id_uo','nombre_unidad'],
+					fields: ['id_funcionario', 'desc_funcionario2','id_uo','nombre_unidad'],
 					remoteSort: true,
 					baseParams: {par_filtro: 'movtip.nombre#movtip.codigo'}
 				}),
 				valueField: 'id_funcionario',
-				displayField: 'desc_funcionario1',
-				gdisplayField: 'desc_funcionario1',
+				displayField: 'desc_funcionario2',
+				gdisplayField: 'desc_funcionario2',
 				hiddenName: 'id_funcionario',
 				forceSelection: true,
 				typeAhead: false,
@@ -188,11 +188,11 @@ Phx.vista.EquipoResponsable=Ext.extend(Phx.gridInterfaz,{
 				minChars: 2,
                 tpl:'<tpl for=".">\
 		                       <div class="x-combo-list-item"><p><b>UO: </b>{nombre_unidad}</p>\
-		                      <p><b>FUN: </b>{desc_funcionario1}</p>\
+		                      <p><b>FUN: </b>{desc_funcionario2}</p>\
 		                     </div></tpl>',
 
 				renderer : function(value, p, record) {
-					return String.format('{0}', record.data['desc_funcionario1']);
+					return String.format('{0}', record.data['desc_funcionario2']);
 				}
 			},
 			type: 'ComboBox',
@@ -362,7 +362,7 @@ Phx.vista.EquipoResponsable=Ext.extend(Phx.gridInterfaz,{
 		{name:'usr_reg', type: 'string'},
 		{name:'usr_mod', type: 'string'},
 		{name:'nombre_aom1', type: 'string'},
-		{name:'desc_funcionario1', type: 'string'},
+		{name:'desc_funcionario2', type: 'string'},
 		{name:'valor_parametro', type: 'string'},
 		{name:'codigo_parametro', type: 'string'},
 

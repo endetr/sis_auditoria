@@ -37,7 +37,7 @@ class MODEquipoResponsable extends MODbase{
 		$this->captura('usr_reg','varchar');
 		$this->captura('usr_mod','varchar');
 		$this->captura('nombre_aom1','varchar');
-		$this->captura('desc_funcionario1','text');
+		$this->captura('desc_funcionario2','text');
 		$this->captura('valor_parametro','varchar');
 		$this->captura('codigo_parametro','varchar');
 
