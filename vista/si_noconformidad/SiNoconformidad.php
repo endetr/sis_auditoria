@@ -194,7 +194,7 @@ Phx.vista.SiNoconformidad=Ext.extend(Phx.gridInterfaz,{
 		}
 	],
 	tam_pag:50,	
-	title:'Sist. Integrados para no conformidades',
+	title:'Sist. Integrados para no conformidades nnnn',
 	ActSave:'../../sis_auditoria/control/SiNoconformidad/insertarSiNoconformidad',
 	ActDel:'../../sis_auditoria/control/SiNoconformidad/eliminarSiNoconformidad',
 	ActList:'../../sis_auditoria/control/SiNoconformidad/listarSiNoconformidad',

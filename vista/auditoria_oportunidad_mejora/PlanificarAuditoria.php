@@ -79,7 +79,7 @@ header("content-type: text/javascript; charset=UTF-8");
         },
         arrayDefaultColumHidden:[/*'documento',*/'codigo_aom','id_tipo_om','id_gconsultivo','nombre_aom2'/*,'lugar'*/,'descrip_aom2',/*'fecha_prev_inicio','fecha_prev_fin',*/
             /*'id_tnorma','id_tobjeto'*/'resumen','recomendacion',/*'fecha_eje_inicio','fecha_eje_fin',*/
-            'formulario_ingreso','estado_form_ingreso','usuario_ai','id_proceso_wf','id_estado_wf'],
+            'formulario_ingreso','estado_wf','estado_form_ingreso','usuario_ai','id_proceso_wf','id_estado_wf'],
         tabsouth:[
             {
 

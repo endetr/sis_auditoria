@@ -51,7 +51,8 @@ header("content-type: text/javascript; charset=UTF-8");
         tam_pag:50,
         tipoStore: 'GroupingStore',//GroupingStore o JsonStore #
         remoteGroup: true,
-        groupField: 'nombre_estado',
+        //groupField: 'nombre_estado',
+        groupField: 'estado_wf',
         viewGrid: new Ext.grid.GroupingView({
             forceFit: false
         }),
@@ -121,7 +122,7 @@ header("content-type: text/javascript; charset=UTF-8");
         },*/
         arrayDefaultColumHidden:[/*'documento',*/'codigo_aom','id_gconsultivo','nombre_aom2','lugar','descrip_aom2','fecha_prev_inicio','fecha_prev_fin',
             'id_tnorma','id_tobjeto','resumen','recomendacion','fecha_eje_inicio','fecha_eje_fin',
-            'formulario_ingreso','id_proceso_wf','id_estado_wf','estado_form_ingreso','usuario_ai'],
+            'formulario_ingreso','id_proceso_wf','id_estado_wf','estado_wf','estado_form_ingreso','usuario_ai'],
         /*********************************###################*********************************/
         onButtonNew: function () {
             Phx.vista.ViewGeneralProcesoAuditoria.superclass.onButtonNew.call(this);

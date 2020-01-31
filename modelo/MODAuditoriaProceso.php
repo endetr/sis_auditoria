@@ -132,7 +132,8 @@ class MODAuditoriaProceso extends MODbase{
 				
 		//Define los parametros para la funcion
 		$this->setParametro('id_aproceso','id_aproceso','int4');
-
+        $this->setParametro('id_aom','id_aom','int4');
+        $this->setParametro('id_proceso','id_proceso','int4');
 		//Ejecuta la instruccion
 		$this->armarConsulta();
 		$this->ejecutarConsulta();

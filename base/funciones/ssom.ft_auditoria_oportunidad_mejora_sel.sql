@@ -28,7 +28,6 @@ DECLARE
 	v_resp				varchar;
 
 	v_bandera 			varchar;
-	v_p                 varchar;
 	v_param_estado		varchar;
 
 	v_filtro_unidad     varchar;
@@ -49,6 +48,7 @@ DECLARE
 	v_codigo_parametro  varchar;
 	v_id_uo_i			integer;
 
+
 BEGIN
 
 	v_nombre_funcion = 'ssom.ft_auditoria_oportunidad_mejora_sel';
@@ -64,7 +64,6 @@ BEGIN
 	if(p_transaccion='SSOM_AOM_SEL')then
 
 		begin
-
 			--Sentencia de la consulta
 			v_consulta:='select
 						aom.id_aom,
@@ -820,7 +819,6 @@ BEGIN
 
 		begin
 			--Sentencia de la consulta
-
 			if(v_parametros.p_codigo_aom = 'AI') then
 				v_param_estado = pxp.f_get_variable_global('ssom_exc_parametros_estados_ai');
 			elsif (v_parametros.p_codigo_aom = 'OM') then
@@ -845,7 +843,7 @@ BEGIN
 					,v_nombre_tp
 			from wf.tproceso_macro pm
 						 join wf.ttipo_proceso tp on pm.id_proceso_macro = tp.id_proceso_macro
-			where pm.codigo = 'SAOM' and pm.estado_reg = 'activo' and pm.inicio = 'si' ;
+			where pm.codigo = split_part(''||pxp.f_get_variable_global('ssom_codigo_proceso_macro_tipo_proceso_aom')||'',',',1) and pm.estado_reg = 'activo' and pm.inicio = 'si' and tp.codigo = split_part(''||pxp.f_get_variable_global('ssom_codigo_proceso_macro_tipo_proceso_aom')||'',',',2) ;
 
 			v_consulta:='select te.id_tipo_estado, te.id_tipo_proceso, te.codigo, te.nombre_estado, te.estado_reg
                             from wf.ttipo_estado te

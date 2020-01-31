@@ -133,7 +133,7 @@ header("content-type: text/javascript; charset=UTF-8");
 			//insertamos y habilitamos el boton  para asignar responsables						
 			this.addButton('btnAddResp',
 				{
-					text :'Responsable',
+					text :'Responsablessssssssss',
 					iconCls : 'bcargo',
 					disabled: true,
 					handler : this.onButtonMostrarFormRespNC,
@@ -160,8 +160,8 @@ header("content-type: text/javascript; charset=UTF-8");
 
 			
         },
-		
-		tabsouth:[
+
+        tabsouth:[
         {
             url:'../../../sis_auditoria/vista/accion_propuesta/AccionPropuesta.php',
             title:'Acciones Propuestas para la no conformidad',
@@ -198,6 +198,7 @@ header("content-type: text/javascript; charset=UTF-8");
         },
 
         onButtonSigGrupo:function (){
+            console.log("HHHHHHHHHHHHHHHHHHHHH");
             Phx.CP.loadingShow();
             Ext.Ajax.request({
                 url:'../../sis_auditoria/control/NoConformidad/sigueienteGrupo',
@@ -207,6 +208,7 @@ header("content-type: text/javascript; charset=UTF-8");
                 timeout: this.timeout,
                 scope: this
             });
+            console.log("HHHHHHHHHHHHHHHHHHHHH",this.cmbAuditorias.getValue());
             this.reload();
         },
         success: function(resp){
@@ -498,10 +500,12 @@ header("content-type: text/javascript; charset=UTF-8");
             var uoID = null;
             var data = this.getSelectedData();
              if(data.id_uo_adicional != null){
-                  uoID = data.id_uo;
+                  uoID = data.id_uo_adicional;
              }
-                 uoID = data.id_uo_adicional;
-
+             else{
+                 uoID = data.id_uo;
+             }
+            //uoID = data.id_uo_adicional;
             this.cmpResponsable.reset();
             this.cmpResponsable.store.baseParams = Ext.apply(this.cmpResponsable.store.baseParams, {id_uo: uoID});
             this.cmpResponsable.modificado = true;

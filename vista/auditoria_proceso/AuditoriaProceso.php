@@ -308,13 +308,14 @@ Phx.vista.AuditoriaProceso=Ext.extend(Phx.gridInterfaz,{
 	bsave:true,
     onReloadPage:function(m){
         this.maestro=m;
+
         this.store.baseParams = {id_aom: this.maestro.id_aom};
         //Ext.apply(this.Cmp.id_centro_costo.store.baseParams,{id_gestion: this.maestro.id_gestion});
         this.load({params:{start:0, limit:50}})
         // Para Ocultar un campo del formulario
         //this.ocultarComponente(this.Cmp.id_aom);
         // Para poner un campo no editable
-        this.Cmp.id_aom.disable(true);
+        //this.Cmp.id_aom.disable(true);
     },
     loadValoresIniciales: function () {
         Phx.vista.AuditoriaProceso.superclass.loadValoresIniciales.call(this);
@@ -341,7 +342,7 @@ Phx.vista.AuditoriaProceso=Ext.extend(Phx.gridInterfaz,{
     liberaMenu: function(n){
 
         var tb = Phx.vista.AuditoriaProceso.superclass.preparaMenu.call(this);
-        var data = this.getSelectedData();
+        //var data = this.getSelectedData();
 
         if(this.maestro.estado_wf == 'plani_aprob' || this.maestro.estado_wf == 'vob_planificacion'){
             tb.items.get('b-new-' + this.idContenedor).disable();

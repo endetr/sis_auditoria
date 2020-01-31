@@ -140,7 +140,7 @@ header("content-type: text/javascript; charset=UTF-8");
         },
         arrayDefaultColumHidden:[/*'documento',*/'codigo_aom','id_gconsultivo','nombre_aom2','lugar','descrip_aom2','fecha_prev_inicio','fecha_prev_fin',
             'id_tnorma','id_tobjeto','resumen','recomendacion','fecha_eje_inicio','fecha_eje_fin',
-            'formulario_ingreso','id_proceso_wf','id_estado_wf','estado_form_ingreso','usuario_ai'],
+            'formulario_ingreso','id_proceso_wf','id_estado_wf','estado_wf','estado_form_ingreso','usuario_ai'],
         /*********************************###################*********************************/
         onButtonNew: function () {
             Phx.vista.ProgramarAuditoria.superclass.onButtonNew.call(this);
@@ -493,7 +493,9 @@ header("content-type: text/javascript; charset=UTF-8");
 
             if(data.estado_wf=='vob_programado' || data.estado_wf=='prog_aprob'){
                 this.getBoton('sig_estado').disable();
-                this.getBoton('ant_estado').enable();
+                if((data.lugar =='' || data.lugar == null) || (data.id_tnorma == '' || data.id_tnorma == null) || (data.id_tobjeto=='' || data.id_tobjeto==null)){
+                    this.getBoton('ant_estado').enable();
+                }
             }
             else{
                 this.getBoton('sig_estado').enable();

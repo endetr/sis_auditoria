@@ -95,7 +95,7 @@ header("content-type: text/javascript; charset=UTF-8");
         },
         arrayDefaultColumHidden:[/*'documento','id_tipo_om','id_gconsultivo',*/'codigo_aom','id_funcionario','nombre_aom2',/*'lugar',*/'descrip_aom2',/*'fecha_prev_inicio','fecha_prev_fin',*/
             'id_tnorma','id_tobjeto','resumen','recomendacion','fecha_prev_inicio','fecha_prev_fin','formulario_ingreso','estado_form_ingreso',/*'fecha_prev_inicio','fecha_prev_fin',*/
-            'id_proceso_wf','id_estado_wf','usuario_ai'],
+            'id_proceso_wf','id_estado_wf','estado_wf','usuario_ai'],
         tabsouth:[
             {
                 url:'../../../sis_auditoria/vista/destinatario/Destinatario.php',

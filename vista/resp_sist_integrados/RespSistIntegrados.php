@@ -202,7 +202,7 @@ Phx.vista.RespSistIntegrados=Ext.extend(Phx.gridInterfaz,{
 	id_store:'id_respsi',
 	fields: [
 		{name:'id_respsi', type: 'numeric'},
-		{name:'descrip_func', type: 'string'},
+		//{name:'descrip_func', type: 'string'},
 		{name:'estado_reg', type: 'string'},
 		{name:'id_funcionario', type: 'numeric'},
 		{name:'id_si', type: 'numeric'},

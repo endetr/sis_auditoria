@@ -33,6 +33,9 @@ DECLARE
 	v_cant_actividad        integer;
 	v_record_activ			record;
 
+	v_fecha_inicio date;
+	v_fecha_limite date;
+
 
 BEGIN
 
@@ -54,6 +57,14 @@ BEGIN
 			--raise EXCEPTION 'Holaaaaaaaaaa %', v_cant_actividad;
 			if(v_cant_actividad > 0) then
 				RAISE EXCEPTION ' Ya tiene registrado la actividad en el Cronograma, verifique por favor...!!! ';
+			end if;
+			select fecha_eje_inicio, fecha_eje_fin into v_fecha_inicio,v_fecha_limite from ssom.tauditoria_oportunidad_mejora where id_aom = v_parametros.id_aom and estado_reg='activo';
+			--raise EXCEPTION 'Holaaaaaaaaaa %', v_cant_actividad;
+			if(v_parametros.fecha_ini_activ < v_fecha_inicio or v_parametros.fecha_ini_activ > v_fecha_limite) then
+				RAISE EXCEPTION ' La fecha inicio de actividad no puede ser menor ni mayor a las fechas de Ejecucion, asegurece por favor!!!! ';
+			end if;
+			if((v_parametros.fecha_fin_activ < v_fecha_inicio or v_parametros.fecha_fin_activ > v_fecha_limite) or (v_parametros.fecha_fin_activ < v_parametros.fecha_ini_activ)) then
+				RAISE EXCEPTION ' La fecha fin de actividad no puede ser menor a la fecha inicio de actividad y debe estar dentro de los rangos de fechas de Ejecucion, asegurece por favor!!!! ';
 			end if;
 
 			insert into ssom.tcronograma(
@@ -146,6 +157,14 @@ BEGIN
        end if;  */
 
 			--end if;
+			select fecha_eje_inicio, fecha_eje_fin into v_fecha_inicio,v_fecha_limite from ssom.tauditoria_oportunidad_mejora where id_aom = v_parametros.id_aom and estado_reg='activo';
+			--raise EXCEPTION 'Holaaaaaaaaaa %', v_cant_actividad;
+			if(v_parametros.fecha_ini_activ < v_fecha_inicio or v_parametros.fecha_ini_activ > v_fecha_limite) then
+				RAISE EXCEPTION ' La fecha inicio de actividad no puede ser menor ni mayor a las fechas de Ejecucion, asegurece por favor!!!! ';
+			end if;
+			if((v_parametros.fecha_fin_activ < v_fecha_inicio or v_parametros.fecha_fin_activ > v_fecha_limite) or (v_parametros.fecha_fin_activ < v_parametros.fecha_ini_activ)) then
+				RAISE EXCEPTION ' La fecha fin de actividad no puede ser menor a la fecha inicio de actividad y debe estar dentro de los rangos de fechas de Ejecucion, asegurece por favor!!!! ';
+			end if;
 
 			update ssom.tcronograma set
 																nueva_actividad = v_parametros.nueva_actividad,

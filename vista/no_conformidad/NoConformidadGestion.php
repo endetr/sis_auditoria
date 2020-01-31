@@ -22,6 +22,7 @@ header("content-type: text/javascript; charset=UTF-8");
         constructor: function(config) {
 			this.idContenedor = config.idContenedor;
 			this.maestro = config;
+
 			this.obj = {
 			    id_aom : this.maestro.id_aom,
                 id_uo : this.maestro.id_uo,
@@ -33,7 +34,7 @@ header("content-type: text/javascript; charset=UTF-8");
 			Phx.vista.NoConformidadGestion.superclass.constructor.call(this,config);
             this.load({params:{start:0, limit:this.tam_pag,id_aom:this.obj.id_aom}});
 
-			this.addButton('btnReporte',
+            this.addButton('btnReporte',
 				{
 					text :'Reporte',
 					iconCls : 'bpdf32',
@@ -41,7 +42,7 @@ header("content-type: text/javascript; charset=UTF-8");
 					handler : this.onButtonReporte,
 					tooltip : '<b>Reporte</b><br/><b>No conformidades</b>'
 				}
-			);			
+			);
 			
 			//ponemos el nombre de la auditoria en un label en las NC
 			this.nombre = new Ext.form.Label({
@@ -83,13 +84,14 @@ header("content-type: text/javascript; charset=UTF-8");
 
 		//vamos añadir la interfaz debil referida a los puntos de norma para las no conformidades****SSS
 		tabsouth:[
-        {
-            url:'../../../sis_auditoria/vista/pnorma_noconformidad/PnormaNoconformidadSi.php',
-            title:'Puntos de norma para la No conformidad',
-            height:'50%',
-            cls:'PnormaNoconformidadSi'
-        }
+            {
+                url:'../../../sis_auditoria/vista/pnorma_noconformidad/PnormaNoconformidadSi.php',
+                title:'Puntos de norma para la No conformidad eeeeeeeeeeee',
+                height:'50%',
+                cls:'PnormaNoconformidadSi'
+            }
 		],
+        arrayDefaultColumHidden:[/*'documento',*/'id_funcionario_nc'],
 
         //los botones se preparan al inicar la vista
         preparaMenu:function(n){

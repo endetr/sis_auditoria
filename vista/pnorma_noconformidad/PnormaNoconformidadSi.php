@@ -39,7 +39,7 @@ header("content-type: text/javascript; charset=UTF-8");
 		//vamos añadir la interfaz debil referida a los puntos de norma para las no conformidades****SSS
         east: {
             url:'../../../sis_auditoria/vista/si_noconformidad/SiNoconformidad.php',
-            title:'Sistemas Integrados para No conformidad',
+            title:'Sistemas Integrados para No conformidad ssssssssssssssssssss',
             //height:'50%',
             width: '50%',
             cls:'SiNoconformidad'

@@ -26,9 +26,19 @@ DECLARE
 	v_parametros  		record;
 	v_nombre_funcion   	text;
 	v_resp				varchar;
-    v_id_parametro 		integer;
-    v_filtro			varchar;
-    v_id_uo				integer;
+        v_id_parametro 		integer;
+        v_filtro			varchar;
+        --v_id_uo				integer;
+
+	v_id_administrador integer;
+	v_id_usuario integer;
+
+	v_id_proceso_macro integer;
+	v_codigo_pm varchar;
+	v_nombre_pm varchar;
+	v_id_tipo_proceso integer;
+	v_codigo_tp varchar;
+	v_nombre_tp varchar;
 			    
 BEGIN
 
@@ -50,19 +60,42 @@ BEGIN
     
     		--Sentencia de la consulta
             
-            ---raise exception '%',v_parametros.tipo_interfaz;
-            v_filtro = '';
-         	if v_parametros.tipo_interfaz = 'registroNoConformidad' then
-            		--filtro por admin ve todo los registros de los usuarios
-                     
-                     v_filtro = 'noconf.estado_wf = ''propuesta''and';
-                     
-                     --filtro por usuario solo puede ver sus propios registros
-             		if  p_administrador <> 1 then
-                    	 v_filtro = 'noconf.estado_wf = ''propuesto''and usu1.cuenta = '||p_id_usuario||'and';
-                    end if;
-            end if;
-            
+            ---raise exception '%',p_administrador;
+
+				select
+					 pm.id_proceso_macro
+					 ,pm.codigo
+					 ,pm.nombre
+					 ,tp.id_tipo_proceso
+					 ,tp.codigo
+					 ,tp.nombre
+				into
+					v_id_proceso_macro
+					,v_codigo_pm
+					,v_nombre_pm
+					,v_id_tipo_proceso
+					,v_codigo_tp
+					,v_nombre_tp
+				from wf.tproceso_macro pm
+				join wf.ttipo_proceso tp on pm.id_proceso_macro = tp.id_proceso_macro
+				where pm.codigo = split_part(''||pxp.f_get_variable_global('ssom_codigo_proceso_macro_tipo_proceso_aom')||'',',',1) and pm.estado_reg = 'activo' and pm.inicio = 'si' and tp.codigo = split_part(''||pxp.f_get_variable_global('ssom_codigo_tipo_proceso_noconformidad')||'',',',1);
+
+
+					v_filtro='';
+					v_id_administrador = p_administrador;
+					v_id_usuario = p_id_usuario;
+         	if (v_parametros.tipo_interfaz = 'registroNoConformidad') then
+            --filtro por admin ve todo los registros de los usuarios
+
+						--v_filtro := ' noconf.estado_wf in (''propuesta'',''vbnoconformidad'') and';
+						v_filtro := ' noconf.estado_wf in (select te.codigo from wf.ttipo_estado te where te.id_tipo_proceso = '||v_id_tipo_proceso||' ) and';
+						--filtro por usuario solo puede ver sus propios registros
+						if(v_id_administrador <> 1) then
+							--v_filtro := 'noconf.estado_wf = ''propuesta'' and usu1.cuenta = '||v_id_usuario||' and ';
+							v_filtro := 'usu1.cuenta = '||v_id_usuario||' and ';
+						end if;
+          end if;
+					--raise EXCEPTION 'vvvvv %',v_filtro;
 			v_consulta:='select
                         noconf.id_nc,
                         noconf.obs_consultor,
@@ -93,11 +126,11 @@ BEGIN
                         param.valor_parametro,
                         unorg1.nombre_unidad as gerencia_uo1, 
                         unorg2.nombre_unidad as gerencia_uo2,      
-                        ofunc.desc_funcionario1 as funcionario_uo,
+                        ofunc.desc_funcionario2 as funcionario_uo,
                         (select count(*)
                                from unnest(id_tipo_estado_wfs) elemento
                                where elemento = ew.id_tipo_estado)::integer  as contador_estados,
-                               rfun.desc_funcionario1 as funcionario_resp
+                               rfun.desc_funcionario2 as funcionario_resp
                         from ssom.tno_conformidad noconf
                         inner join segu.tusuario usu1 on usu1.id_usuario = noconf.id_usuario_reg
                         left join segu.tusuario usu2 on usu2.id_usuario = noconf.id_usuario_mod
@@ -131,13 +164,18 @@ BEGIN
 
 		begin
 			--Sentencia de la consulta de conteo de registros
-            v_filtro = '';
-         	if v_parametros.tipo_interfaz = 'registroNoConformidad' then
-                   v_filtro = 'noconf.estado_wf = ''propuesta''and';
-             		if  p_administrador <> 1then
-                    	 v_filtro = 'noconf.estado_wf = ''propuesto''and usu1.cuenta = '||p_id_usuario||'and';
-                    end if;
-            end if;
+           v_filtro='';
+					v_id_administrador = p_administrador;
+					v_id_usuario = p_id_usuario;
+         	if (v_parametros.tipo_interfaz = 'registroNoConformidad') then
+            --filtro por admin ve todo los registros de los usuarios
+
+						v_filtro := ' noconf.estado_wf in (''propuesta'',''vbnoconformidad'') and';
+						--filtro por usuario solo puede ver sus propios registros
+						if(v_id_administrador <> 1) then
+								v_filtro := 'noconf.estado_wf = ''propuesta'' and usu1.cuenta = '||v_id_usuario||' and ';
+						end if;
+          end if;
 			v_consulta:='select count(id_nc)
                         from ssom.tno_conformidad noconf
                         inner join segu.tusuario usu1 on usu1.id_usuario = noconf.id_usuario_reg

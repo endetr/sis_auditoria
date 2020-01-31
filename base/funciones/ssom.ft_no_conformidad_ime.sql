@@ -93,42 +93,42 @@ BEGIN
 
 	if(p_transaccion='SSOM_NOCONF_INS')then
 					
-        begin
-    		    	
-            ---Obtener la gestion actual (sirve para wf)
-        	select
-            	g.id_gestion,
-           		g.gestion
-            into
-                v_rec_gestion
-            from param.tgestion g
-            where g.gestion = EXTRACT(YEAR FROM current_date);
-                   
-        	---Obtener el codigo del proceso macro y id proceso (sirve para wf
-            select
-            	tp.codigo,
-         		pm.id_proceso_macro
-                into
-                v_codigo_tipo_proceso,
-                v_id_proceso_macro
-           	from  wf.tproceso_macro pm
-           	inner join wf.ttipo_proceso tp on tp.id_proceso_macro = pm.id_proceso_macro
-			where  pm.codigo='SAOM' and tp.estado_reg = 'activo' and tp.inicio = 'no'
-            and tp.codigo = 'NOCON';
-           
-            --- generar nro de tramite usando funcion de wf (sirve para wf)
-        	
-         	select
-                 ps_num_tramite ,
-                 ps_id_proceso_wf ,
-                 ps_id_estado_wf ,
-                 ps_codigo_estado
-            into
-                 v_nro_tramite,
-                 v_id_proceso_wf,
-                 v_id_estado_wf,
-                 v_codigo_estado
-        	from wf.f_inicia_tramite(
+      begin
+
+          ---Obtener la gestion actual (sirve para wf)
+          --raise EXCEPTION 'rrrrrrrrr % ',v_parametros;
+          select
+            g.id_gestion,
+            g.gestion
+          into
+            v_rec_gestion
+          from param.tgestion g
+          where g.gestion = EXTRACT(YEAR FROM current_date);
+
+          ---Obtener el codigo del proceso macro y id proceso (sirve para wf
+          select
+            tp.codigo,
+            pm.id_proceso_macro
+          into
+            v_codigo_tipo_proceso,
+            v_id_proceso_macro
+          from  wf.tproceso_macro pm
+          inner join wf.ttipo_proceso tp on tp.id_proceso_macro = pm.id_proceso_macro
+          where  pm.codigo='SAOM' and tp.estado_reg = 'activo' and tp.inicio = 'no' and tp.codigo = 'NOCON';
+
+          ---generar nro de tramite usando funcion de wf (sirve para wf)
+
+          select
+             ps_num_tramite ,
+             ps_id_proceso_wf ,
+             ps_id_estado_wf ,
+             ps_codigo_estado
+          into
+             v_nro_tramite,
+             v_id_proceso_wf,
+             v_id_estado_wf,
+             v_codigo_estado
+          from wf.f_inicia_tramite(
                  p_id_usuario,
                  v_parametros._id_usuario_ai,
                  v_parametros._nombre_usuario_ai,
@@ -139,12 +139,11 @@ BEGIN
                  'No conformidad',
                  v_codigo_tipo_proceso,
                  v_parametros.nro_tramite_padre);
-                 
-        	--- raise exception 'nro -> %',v_nro_tramite;
-        	---Sentencia de la insercion en la tabla
-            
-           
-        	insert into ssom.tno_conformidad(
+
+          ---raise exception 'nro -> %',v_nro_tramite;
+          ---Sentencia de la insercion en la tabla
+
+          insert into ssom.tno_conformidad(
                 obs_consultor,
                 estado_reg,
                 evidencia,
@@ -167,7 +166,7 @@ BEGIN
                 estado_wf,  	--integrar con wf new
                 codigo_nc,
                 id_funcionario_nc
-          	) values(
+            ) values(
                 v_parametros.obs_consultor,
                 'activo',
                 v_parametros.evidencia,
@@ -186,20 +185,20 @@ BEGIN
                 v_parametros.id_uo_adicional,
                 v_id_proceso_wf,	--integrar con wf new
                 v_id_estado_wf,		--integrar con wf new
-                v_nro_tramite,		--integrar con wf new		 	
+                v_nro_tramite,		--integrar con wf new
                 v_codigo_estado,	--integrar con wf new
                 ssom.f_generar_correlativo('NOCONF', EXTRACT(YEAR FROM current_date)::integer),
                 v_parametros.id_funcionario_nc
-			)RETURNING id_nc into v_id_nc;
-			
-			--Definicion de la respuesta
-			v_resp = pxp.f_agrega_clave(v_resp,'mensaje','No Conformidad almacenado(a) con exito (id_nc'||v_id_nc||')'); 
-            v_resp = pxp.f_agrega_clave(v_resp,'id_nc',v_id_nc::varchar);
+            )RETURNING id_nc into v_id_nc;
 
-            --Devuelve la respuesta
-            return v_resp;
+          --Definicion de la respuesta
+          v_resp = pxp.f_agrega_clave(v_resp,'mensaje','No Conformidad almacenado(a) con exito (id_nc'||v_id_nc||')');
+          v_resp = pxp.f_agrega_clave(v_resp,'id_nc',v_id_nc::varchar);
 
-		end;
+          --Devuelve la respuesta
+          return v_resp;
+
+       end;
 
 	/*********************************    
  	#TRANSACCION:  'SSOM_NOCONF_MOD'
@@ -621,24 +620,24 @@ BEGIN
 
 		begin
 			
-        for v_registos in (select   no.id_nc,
-                                    no.id_estado_wf,
-                                    no.id_proceso_wf,
-                                    no.estado_wf,
-                                    no.id_funcionario_nc,
-                                    no.nro_tramite
+        for v_registos in (select
+                            no.id_nc,
+                            no.id_estado_wf,
+                            no.id_proceso_wf,
+                            no.estado_wf,
+                            no.id_funcionario_nc,
+                            no.nro_tramite
                             from ssom.tauditoria_oportunidad_mejora au 
                             inner join ssom.tno_conformidad no on no.id_aom = au.id_aom
-                            where au.id_aom = v_parametros.id_aom 
-                                  and  no.estado_wf = 'propuesta' 
-                                  and  no.id_funcionario_nc is not null)
+                            where au.id_aom = v_parametros.id_aom and  no.estado_wf = 'propuesta' and  no.id_funcionario_nc is not null)
                           
         loop 
                           
-              select ewf.id_tipo_estado,
-                     ti.codigo
-                     into 
-                     v_estado_actual
+              select
+                ewf.id_tipo_estado,
+                ti.codigo
+              into
+                v_estado_actual
               from wf.testado_wf ewf
               inner join wf.ttipo_estado ti on ti.id_tipo_estado = ewf.id_tipo_estado
               where ewf.id_estado_wf = v_registos.id_estado_wf;

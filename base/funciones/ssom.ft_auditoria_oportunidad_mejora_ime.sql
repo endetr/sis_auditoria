@@ -329,7 +329,16 @@ BEGIN
           raise EXCEPTION 'La fecha fin ejecucion no puede ser menor a las fecha de programacion ni menor a fecha inicio de ejecucion, verifique por favor %', v_parametros.fecha_prog_fin;
         end if;
       end if;
+      if (v_parametros.estado_wf = 'planificacion') then
+        if((v_parametros.fecha_eje_inicio < v_parametros.fecha_prog_inicio))then
+          raise EXCEPTION 'La fecha inicio de ejecucion no puede ser menor a las fecha de programacion, verifique por favor %', v_parametros.fecha_eje_inicio;
+        end if;
 
+        if((v_parametros.fecha_eje_fin < v_parametros.fecha_prog_inicio) or (v_parametros.fecha_eje_fin < v_parametros.fecha_eje_inicio))then
+          raise EXCEPTION 'La fecha fin ejecucion no puede ser menor a las fecha de programacion ni menor a fecha inicio de ejecucion, verifique por favor %', v_parametros.fecha_prog_fin;
+        end if;
+      end if;
+      --raise EXCEPTION 'hhhh %', v_parametros;
       update ssom.tauditoria_oportunidad_mejora set
                                                   id_proceso_wf = v_parametros.id_proceso_wf,
                                                   nro_tramite_wf = v_parametros.nro_tramite_wf,
@@ -572,37 +581,39 @@ BEGIN
 
       if(v_registros.estado_wf = 'prog_aprob') then
 
-        if ((v_registros.lugar is not null or v_registros.lugar <>'') and (v_registros.id_tnorma is not null or v_registros.id_tnorma <> '') and (v_registros.id_tobjeto is not null or v_registros.id_tobjeto <> '') and (v_registros.fecha_eje_inicio is not null) and (v_registros.fecha_eje_fin is not null)) then
+          if ((v_registros.lugar is not null or v_registros.lugar <>'') and (v_registros.id_tnorma is not null or v_registros.id_tnorma <> '') and (v_registros.id_tobjeto is not null or v_registros.id_tobjeto <> '') and (v_registros.fecha_eje_inicio is not null) and (v_registros.fecha_eje_fin is not null)) then
 
-          select count(id_aproceso) into v_cant_process from ssom.tauditoria_proceso where id_aom = v_parametros.p_id_aom;
-          if(v_cant_process = 0) then
-            RAISE EXCEPTION ' Para la Planificacion es necesario Asignar al menos un Proceso Auditable a la Auditoria...!!! ';
+            select count(id_aproceso) into v_cant_process from ssom.tauditoria_proceso where id_aom = v_parametros.p_id_aom;
+            if(v_cant_process = 0) then
+              RAISE EXCEPTION ' Para la Planificacion es necesario Asignar al menos un Proceso Auditable a la Auditoria...!!! ';
+            end if;
+
+            select count(id_equipo_responsable) into v_cant_team_resp from ssom.tequipo_responsable where id_aom = v_parametros.p_id_aom;
+            if(v_cant_team_resp = 0 or v_cant_team_resp = 1) then
+              RAISE EXCEPTION ' Para la Planificacion es necesario Asignar un Auiditor Lider/Responsable y al menos mas un Auditor que no sea Responsable de la Auditoria...!!! ';
+            end if;
+
+            select count(id_anpn) into v_cant_norma from ssom.tauditoria_npn where id_aom = v_parametros.p_id_aom;
+            if(v_cant_norma = 0) then
+              RAISE EXCEPTION ' Para la Planificacion es necesario Asignar un Puntos de Norma a la Auditoria...!!! ';
+            end if;
+
+            select count(id_cronograma) into v_cant_task from ssom.tcronograma where id_aom = v_parametros.p_id_aom;
+            if(v_cant_task = 0) then
+              RAISE EXCEPTION ' Para la Planificacion es necesario agregar actividad(es) a Cronograma para el proceso de la Auditoria...!!! ';
+            end if;
+
+          else
+            RAISE EXCEPTION 'Para planificar es necesario llenar Datos Generales, verifique por favor...!!! %',v_parametros;
           end if;
-
-          select count(id_equipo_responsable) into v_cant_team_resp from ssom.tequipo_responsable where id_aom = v_parametros.p_id_aom;
-          if(v_cant_team_resp = 0 or v_cant_team_resp = 1) then
-            RAISE EXCEPTION ' Para la Planificacion es necesario Asignar un Auiditor Lider/Responsable y al menos mas un Auditor que no sea Responsable de la Auditoria...!!! ';
-          end if;
-
-          select count(id_anpn) into v_cant_norma from ssom.tauditoria_npn where id_aom = v_parametros.p_id_aom;
-          if(v_cant_norma = 0) then
-            RAISE EXCEPTION ' Para la Planificacion es necesario Asignar un Puntos de Norma a la Auditoria...!!! ';
-          end if;
-
-          select count(id_cronograma) into v_cant_task from ssom.tcronograma where id_aom = v_parametros.p_id_aom;
-          if(v_cant_task = 0) then
-            RAISE EXCEPTION ' Para la Planificacion es necesario agregar actividad(es) a Cronograma para el proceso de la Auditoria...!!! ';
-          end if;
-
-        else
-          RAISE EXCEPTION 'Para planificar es necesario llenar Datos Generales, verifique por favor...!!! %',v_parametros;
-        end if;
-
       end if;
+
       --Para cambiar siguiente estado
       if(v_registros.estado_wf = 'ejecutada') then
+        --raise EXCEPTION 'hola valores % % %', v_registros.resumen,',',v_registros.recomendacion;
+        --raise EXCEPTION 'hola valores doss % %', char_length(v_registros.resumen),v_registros.resumen;
 
-        if ((v_registros.resumen is not null or v_registros.resumen <>'') and (v_registros.recomendacion is not null or v_registros.recomendacion <>'')) then
+        if ((v_registros.resumen <> null or v_registros.resumen <> '') and (v_registros.recomendacion <> null or v_registros.recomendacion <>'')) then
 
           select count(id_destinatario_aom) into v_cant_asig_crev from ssom.tdestinatario where id_aom = v_parametros.p_id_aom;
           if(v_cant_asig_crev = 0) then
@@ -616,8 +627,6 @@ BEGIN
           v_cant_asig_nc
           from ssom.tno_conformidad
           where id_aom = v_parametros.p_id_aom;*/
-
-
           select count(id_nc) into v_cant_asig_nc from ssom.tno_conformidad where id_aom = v_parametros.p_id_aom;
           --raise EXCEPTION 'heeeeeeeeeeee %',v_cant_asig_nc;
           if(v_cant_asig_nc > 0) then
@@ -636,10 +645,11 @@ BEGIN
               end if;
 
             END LOOP;
-
+          /*else
+            RAISE EXCEPTION ' El informe requiere ser registrada al menos una no conformidad de la Auditoria...!!! %',v_parametros;*/
           end if;
 
-        else
+         else
           RAISE EXCEPTION ' El informe requiere ser llenada Resumen y Recomendacion de la Auditoria...!!! %',v_parametros;
         end if;
 
@@ -647,12 +657,12 @@ BEGIN
 
       select
         *
-        into
-          va_id_tipo_estado,
-          va_codigo_estado,
-          va_disparador,
-          va_regla,
-          va_prioridad
+      into
+        va_id_tipo_estado,
+        va_codigo_estado,
+        va_disparador,
+        va_regla,
+        va_prioridad
       FROM wf.f_obtener_estado_wf(v_registros.id_proceso_wf, v_registros.id_estado_wf,NULL,'siguiente');
 
 

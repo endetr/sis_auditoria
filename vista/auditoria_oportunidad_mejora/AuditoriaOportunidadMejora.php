@@ -17,7 +17,7 @@ Phx.vista.AuditoriaOportunidadMejora=Ext.extend(Phx.gridInterfaz,{
     	//llama al constructor de la clase padre
 		Phx.vista.AuditoriaOportunidadMejora.superclass.constructor.call(this,config);
         this.init();
-		this.load({params:{start:0, limit:this.tam_pag}});
+		//this.load({params:{start:0, limit:this.tam_pag}});
         //this.iniciarEventos();
         //console.log("Verificador de generador de serie wwwww:",this.generarSerieAOM("R100000"));
 
@@ -122,7 +122,7 @@ Phx.vista.AuditoriaOportunidadMejora=Ext.extend(Phx.gridInterfaz,{
             grid:true,
             form:true
         },
-        /*{
+        {
             config:{
                 name: 'estado_wf',
                 fieldLabel: 'Estado',
@@ -164,7 +164,7 @@ Phx.vista.AuditoriaOportunidadMejora=Ext.extend(Phx.gridInterfaz,{
             grid:true,
             form:true
 
-        },*/
+        },
         {
             config:{
                 name: 'nombre_estado',

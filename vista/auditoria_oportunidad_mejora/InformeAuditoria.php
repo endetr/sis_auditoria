@@ -7,6 +7,12 @@
  *@description Archivo con la interfaz de usuario que permite
  *planificar Auditoria.
  *
+    HISTORIAL DE MODIFICACIONES:
+
+    ISSUE:            FECHA:              AUTOR:               DESCRIPCION:
+    #0XX            24/01/2020             MCCH                Unificacion boton Ejecutar,Informe con el boton Siguiente y Anterior en IU Informe Auaditoria
+    #0XX            xx/xx/2020             XXXX                 Introducir la descripcion
+ *
  */
 header("content-type: text/javascript; charset=UTF-8");
 ?>
@@ -53,20 +59,20 @@ header("content-type: text/javascript; charset=UTF-8");
                 //handler : this.validarEstado,
                 tooltip : '<b>Registrar datos generales de Auditoria</b>'
             });*/
-            this.addButton('btnEjecutar', {
+            /*this.addButton('btnEjecutar', {
                 text : 'Ejecutar',
-                iconCls : 'bgood',/*'badelante','bballot','block','block','bwrong','bok'*/
+                iconCls : 'bgood',//'badelante','bballot','block','block','bwrong','bok'
                 disabled : false,
                 handler : this.sigEstadoAutomatico,
                 tooltip : '<b>Establecer planificacion</b>'
-            });
-            this.addButton('btnInforme', {
+            });*/
+            /*this.addButton('btnInforme', {
                 text : 'Informe',
-                iconCls : 'bgood',/*'badelante','bballot','block','block','bwrong','bok'*/
+                iconCls : 'bgood',//'badelante','bballot','block','block','bwrong','bok'
                 disabled : false,
                 handler : this.sigEstadoAutomatico,
                 tooltip : '<b>Establecer planificacion</b>'
-            });
+            });*/
             this.addButton('btnAuditSummary', {
                 text : 'Resumen',
                 iconCls : 'bballot', /*'bballot','block','bgood','block'*/
@@ -89,14 +95,15 @@ header("content-type: text/javascript; charset=UTF-8");
 							tooltip : '<b>Gestion de No conformidades</b>',
 							scope:this
             });
-
-            /*this.addButton('btnNotificaInformeAuditoria', {
-                text : 'Notificar Informe',
-                iconCls : 'badelante', /*'bballot','block','bgood','block'*/
-                /*disabled : false,
-                handler : this.onBtnNotificaInformeAuditoria,
-                tooltip : '<b>Notificar Informe de Auditoria</b>'
-            });*/
+            this.addButton('ant_estado', {
+                argument: {estado: 'anterior'},
+                text:'Anterior',
+                grupo:[0,2],
+                iconCls: 'batras',
+                disabled:true,
+                handler:this.antEstado,
+                tooltip: '<b>Volver al Anterior Estado</b>'
+            });
             this.addButton('sig_estado',{
                 text:'Siguiente',
                 grupo:[0,2],
@@ -106,9 +113,9 @@ header("content-type: text/javascript; charset=UTF-8");
                 tooltip: '<b>Pasar al Siguiente Estado</b>'
             });
             this.addBotonesGantt();
+            this.TabPanelSouth.getItem(this.idContenedor + '-south-0').setDisabled(true);
             //this.getBotonEjecutar('ejecutada');
             //this.getBoton('btnInforme').hide();
-            //this.TabPanelSouth.getItem(this.idContenedor + '-south-0').setDisabled(true);
         },
 
         /*gruposBarraTareas:[{name:'borrador',title:'<H1 align="center"><i class="fa fa-thumbs-o-down"></i> Borradores</h1>',grupo:0,height:0},
@@ -118,7 +125,7 @@ header("content-type: text/javascript; charset=UTF-8");
 
         arrayDefaultColumHidden:[/*'documento',*/'codigo_aom','id_tipo_om','id_gconsultivo','nombre_aom2',/*'lugar',/*/'descrip_aom2',/*'fecha_prev_inicio','fecha_prev_fin',*/
             /*'id_tnorma','id_tobjeto'*/,'resumen','recomendacion','formulario_ingreso','estado_form_ingreso',
-            'id_proceso_wf','id_estado_wf','usuario_ai'],
+            'id_proceso_wf','estado_wf','id_estado_wf','usuario_ai'],
 
         tabsouth:[
             {
@@ -209,12 +216,8 @@ header("content-type: text/javascript; charset=UTF-8");
         },*/
         EnableSelect: function(){
             Phx.vista.InformeAuditoria.superclass.EnableSelect.call(this);
-            var data = this.getSelectedData();
-            //console.log("valor de getSelected-->",this.getSelectedData().estado_wf);///*||(this.getSelectedData() && this.getSelectedData().estado_wf== "ejecutada"*/
-            if((this.getSelectedData() && this.getSelectedData().estado_wf=="plani_aprob") ) {
-                this.TabPanelSouth.getItem(this.idContenedor + '-south-0').setDisabled(true);
-            }
-            else{
+            this.TabPanelSouth.getItem(this.idContenedor + '-south-0').setDisabled(true);
+            if((this.getSelectedData() /*&& this.getSelectedData().estado_wf=="informe"*/ && this.getSelectedData().resumen!="" ) ) {
                 this.TabPanelSouth.getItem(this.idContenedor + '-south-0').setDisabled(false);
             }
         },
@@ -224,8 +227,8 @@ header("content-type: text/javascript; charset=UTF-8");
          * ======================================================================
          * */
 
-        sigEstadoAutomatico: function(){
-            var data = this.getSelectedData();
+        sigEstadoAutomaticoIA: function(data){
+            //var data = this.getSelectedData();
             console.log("valor del id aom -->",data.id_aom);
             //alert("Entra sigEstadoAutomatico:",data.id_aom);
             if(confirm("Usted esta seguro de ejecutar la Auditoria ?")){
@@ -255,27 +258,36 @@ header("content-type: text/javascript; charset=UTF-8");
         },
         sigEstado:function(){
             var data = this.getSelectedData();
-            this.objWizard = Phx.CP.loadWindows('../../../sis_workflow/vista/estado_wf/FormEstadoWf.php',
-                'Estado de Wf',
-                {
-                    modal:true,
-                    width:700,
-                    height:450
-                }, {data:{
-                        id_aom:data.id_aom,
-                        id_estado_wf:data.id_estado_wf,
-                        id_proceso_wf:data.id_proceso_wf,
 
-                    }}, this.idContenedor,'FormEstadoWf',
-                {
-                    config:[{
-                        event:'beforesave',
-                        delegate: this.onSaveWizard,
+            if (data.estado_wf == 'plani_aprob' || data.estado_wf == 'ejecutada' /*|| data.estado_wf == 'informe'*/) {
+                this.sigEstadoAutomaticoIA(data);
+            }
+            else {
 
-                    }],
+                this.objWizard = Phx.CP.loadWindows('../../../sis_workflow/vista/estado_wf/FormEstadoWf.php',
+                    'Estado de Wf',
+                    {
+                        modal: true,
+                        width: 700,
+                        height: 450
+                    }, {
+                        data: {
+                            id_aom: data.id_aom,
+                            id_estado_wf: data.id_estado_wf,
+                            id_proceso_wf: data.id_proceso_wf,
 
-                    scope:this
-                });
+                        }
+                    }, this.idContenedor, 'FormEstadoWf',
+                    {
+                        config: [{
+                            event: 'beforesave',
+                            delegate: this.onSaveWizard,
+
+                        }],
+
+                        scope: this
+                    });
+            }
 
         },
         onSaveWizard:function(wizard,resp){
@@ -303,6 +315,74 @@ header("content-type: text/javascript; charset=UTF-8");
             Phx.CP.loadingHide();
             resp.argument.wizard.panel.destroy();
             this.reload();
+        },
+        antEstado: function(res){
+            var data = this.getSelectedData();
+            /*Ext.Ajax.request({
+                url:'../../sis_auditoria/control/AuditoriaOportunidadMejora/listarAuditoriaOportunidadMejora',
+                params:{bandera:'estaPlanificado',start:0, limit:1},
+                dataType:"JSON",
+                success:function (resp) {
+                    var reg = Ext.util.JSON.decode(Ext.util.Format.trim(resp.responseText));
+                    console.log("reg->",reg.datos);
+                    console.log("tamaño de reg->",reg.datos.length);
+                    if(reg.datos.length>0){
+                        Ext.Msg.alert("status","La Auditoria ya esta en proceso de Planificación, ya no es posible regresar al estado anterior.!!!");
+                    }
+                    else{*/
+            Phx.CP.loadingHide();
+            Phx.CP.loadWindows('../../../sis_workflow/vista/estado_wf/AntFormEstadoWf.php',
+                'Estado de Wf',
+                {   modal: true,
+                    width: 450,
+                    height: 250
+                },
+                {    data: data,
+                    estado_destino: res.argument.estado
+                },
+                this.idContenedor,'AntFormEstadoWf',
+                {
+                    config:[{
+                        event:'beforesave',
+                        delegate: this.onAntEstado,
+                    }],
+                    scope:this
+                });
+            /*}
+
+        },
+        failure: this.conexionFailure,
+        timeout:this.timeout,
+        scope:this
+    });*/
+
+        },
+        onAntEstado: function(wizard,resp){
+            console.log('resp',wizard.data.id_help_desk);
+            Phx.CP.loadingShow();
+            var operacion = 'cambiar';
+
+            Ext.Ajax.request({
+                url:'../../sis_auditoria/control/AuditoriaOportunidadMejora/anteriorEstado',
+                params:{
+                    id_aom: wizard.data.id_aom,
+                    id_proceso_wf: resp.id_proceso_wf,
+                    id_estado_wf:  resp.id_estado_wf,
+                    obs: resp.obs,
+                    operacion: operacion
+                },
+                argument:{wizard:wizard},
+                success: this.successAntEstado,
+                failure: this.conexionFailure,
+                timeout: this.timeout,
+                scope: this
+            });
+        },
+        successAntEstado:function(resp){
+            Phx.CP.loadingHide();
+            resp.argument.wizard.panel.destroy()
+            this.reload();
+
         },
         /****** implementamos el Gantt *******/
         diagramGanttDinamico : function(){
@@ -358,25 +438,28 @@ header("content-type: text/javascript; charset=UTF-8");
             this.getBoton('btnPlanificarAudit').enable();
             this.getBoton('btnInformeAuditoria').enable();
 
-            if(data.estado_wf == 'plani_aprob'){
+            /*if(data.estado_wf == 'plani_aprob'){
                 this.getBoton('btnInforme').hide();
                 this.getBoton('btnEjecutar').show();
                 this.getBoton('btnEjecutar').enable();
-            }
-            if(data.estado_wf == 'ejecutada'){
+            }*/
+            /*if(data.estado_wf == 'ejecutada'){
                 this.getBoton('btnEjecutar').hide();
                 this.getBoton('btnInforme').show();
                 this.getBoton('btnInforme').enable();
+            }*/
+            if(data.estado_wf == 'ejecutada' || data.estado_wf == 'informe' || data.estado_wf == 'vob_informe'){
+                this.getBoton('ant_estado').enable();
             }
-
-            this.getBoton('btnAuditSummary').enable();
-            this.getBoton('btnAuditRecomendation').enable();
-			this.getBoton('NoConformidades').enable();
-
-			if(data.estado_wf == 'informe'){
+            if(data.estado_wf == 'plani_aprob' || data.estado_wf == 'ejecutada' || data.estado_wf == 'informe'){
                 this.getBoton('sig_estado').enable();
             }
-			this.getBoton('diagrama_gantt').enable();
+            if(data.estado_wf == 'ejecutada' || data.estado_wf == 'informe'){
+                this.getBoton('btnAuditSummary').enable();
+                this.getBoton('btnAuditRecomendation').enable();
+                this.getBoton('NoConformidades').enable();
+            }
+            this.getBoton('diagrama_gantt').enable();
         },
         liberaMenu:function(n){
             //var data = this.getSelectedData();
@@ -386,12 +469,13 @@ header("content-type: text/javascript; charset=UTF-8");
 
             this.getBoton('btnInformeAuditoria').disable();
 
-            this.getBoton('btnEjecutar').disable();
-            this.getBoton('btnInforme').disable();
+            //this.getBoton('btnEjecutar').disable();
+            //this.getBoton('btnInforme').disable();
             this.getBoton('btnAuditSummary').disable();
             this.getBoton('btnAuditRecomendation').disable();
 
             this.getBoton('NoConformidades').disable();
+            this.getBoton('ant_estado').disable();
             this.getBoton('sig_estado').disable();
             this.getBoton('diagrama_gantt').disable();
         },

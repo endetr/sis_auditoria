@@ -89,7 +89,8 @@ class MODNoConformidad extends MODbase{
 		$this->setParametro('id_uo_adicional','id_uo_adicional','int4');
 		$this->setParametro('codigo_nc','codigo_nc','text');	
 		$this->setParametro('nro_tramite_padre','nro_tramite_padre','varchar');	
-        
+		$this->setParametro('id_funcionario_nc','id_funcionario_nc','int4');
+
 		//Ejecuta la instruccion
 		$this->armarConsulta();
 		$this->ejecutarConsulta();
@@ -116,8 +117,11 @@ class MODNoConformidad extends MODbase{
 		$this->setParametro('obs_resp_area','obs_resp_area','text');
 		$this->setParametro('id_aom','id_aom','int4');
 
+
         $this->setParametro('id_uo_adicional','id_uo_adicional','int4');    
-		$this->setParametro('codigo_nc','codigo_nc','text');	
+		$this->setParametro('codigo_nc','codigo_nc','text');
+
+
 		//Ejecuta la instruccion
 		$this->armarConsulta();
 		$this->ejecutarConsulta();

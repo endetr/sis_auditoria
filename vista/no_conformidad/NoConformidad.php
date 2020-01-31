@@ -633,7 +633,8 @@ Phx.vista.NoConformidad=Ext.extend(Phx.gridInterfaz,{
 		{name:'gerencia_uo2', type: 'string'},
 		{name:'funcionario_uo', type: 'string'},
 		{name:'contador_estados', type: 'numeric'},
-		{name:'funcionario_resp', type: 'numeric'}
+		{name:'funcionario_resp', type: 'numeric'},
+		{name:'id_funcionario_nc', type: 'numeric'}
 	],
 	sortInfo:{
 		field: 'id_nc',

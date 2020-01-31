@@ -96,7 +96,7 @@ BEGIN
                               )
                               SELECT
                                   vfc.id_funcionario,
-                                  vfc.desc_funcionario1 as desc_funcionario,
+                                  vfc.desc_funcionario2 as desc_funcionario,
                                   ''''::text  as desc_funcionario_cargo,
                                   1 as prioridad
                               FROM uo_mas_subordinados ss

@@ -47,7 +47,7 @@ BEGIN
         begin
         	--Sentencia de la insercion
         	insert into ssom.tresp_sist_integrados(
-			descrip_func,
+			--descrip_func,
 			estado_reg,
 			id_funcionario,
             id_si,
@@ -58,7 +58,7 @@ BEGIN
 			id_usuario_mod,
 			fecha_mod
           	) values(
-			v_parametros.descrip_func,
+			--v_parametros.descrip_func,
 			'activo',
 			v_parametros.id_funcionario,
             v_parametros.id_si,
@@ -94,7 +94,7 @@ BEGIN
 		begin
 			--Sentencia de la modificacion
 			update ssom.tresp_sist_integrados set
-			descrip_func = v_parametros.descrip_func,
+			--descrip_func = v_parametros.descrip_func,
 			id_funcionario = v_parametros.id_funcionario,
             id_si = v_parametros.id_si,
 			id_usuario_mod = p_id_usuario,

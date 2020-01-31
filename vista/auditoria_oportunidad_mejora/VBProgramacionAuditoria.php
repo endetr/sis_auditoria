@@ -74,7 +74,7 @@ header("content-type: text/javascript; charset=UTF-8");
         },
         arrayDefaultColumHidden:[/*'documento',*/'codigo_aom','nombre_aom2','lugar','descrip_aom2','fecha_prev_inicio','fecha_prev_fin',
             'id_tnorma','id_tobjeto','id_tipo_om','id_gconsultivo','resumen','recomendacion','fecha_eje_inicio','fecha_eje_fin',
-            'formulario_ingreso','estado_form_ingreso','usuario_ai','id_proceso_wf','id_estado_wf'],
+            'formulario_ingreso','estado_form_ingreso','usuario_ai','id_proceso_wf','estado_wf','id_estado_wf'],
 
         /**
          * ======================================================================

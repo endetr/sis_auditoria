@@ -45,7 +45,7 @@ BEGIN
     		--Sentencia de la consulta
 			v_consulta:='select
 						ressi.id_respsi,
-						ressi.descrip_func,
+						--ressi.descrip_func,
 						ressi.estado_reg,
 						ressi.id_funcionario,
                         ressi.id_si,

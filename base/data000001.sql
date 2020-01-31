@@ -515,7 +515,11 @@ VALUES
 (E'ssom_auditoria', E'1', E'Variable global para filtrar Auditorias'),
 (E'ssom_oportunidad_mejora', E'2', E'Variable global para filtrar Oportunidades de Mejora'),
 (E'ssom_exc_parametros_estados_om', E'''programado'',''ejecutado'',''informe'',''cerrado''', E'Para filtrar estados para Opotundiades de Mejora'),
-(E'ssom_parametro_codigo_dpto', E'SAOM_CENTRAL', E'Parametro para filtrar lista de funcionarios del Departamento de Sistema de GEstion Central en base a codigo (SAOM-CENTRAL)');
+(E'ssom_parametro_codigo_dpto', E'SAOM_CENTRAL', E'Parametro para filtrar lista de funcionarios del Departamento de Sistema de GEstion Central en base a codigo (SAOM-CENTRAL)'),
+(E'ssom_codigo_proceso_macro_tipo_proceso_aom', E'SAOM,SAUDIT', E'Para filtrar los estados del proceso de Auditorias, la columna valor contiene dos valores deparadas por una coma el primer codigo es de proceso macro de auditoria y el segundo es el codigo de tipo proceso '),
+(E'ssom_codigo_tipo_proceso_noconformidad', E'NOCON', E'Para filtrar estados de proceso de No conformidad, como puede ver la columna valor contiene solo un codigo porque es parte del macro proceso de Auditoria'),
+(E'ssom_codigo_tipo_proceso_accion_propuesta', E'ACPRO', E'Para filtrar estados de proceso de acciones propuestas de No Conformidades, como se en la columna valor solo hay un codigo, es porque tambien es parte del macro proceso Auditoria ');
+
 
 /********************************************F-DAT-MCCH-SSOM-3-02/12/2019********************************************/
 
